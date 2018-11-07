@@ -1,15 +1,15 @@
 \section{Specifications}
 \subsection{Facebook Chatbot}
-We are using facebook chatbot. So this picture can show you communicate among user, server, database. The information provided to the user is stored in the database so that the server provides information when needed.
+The service will be provided to the user by utilizing the Facebook chatbot. The following figure Fig. \ref{fig:facebook_overview} further details the general design of the system. Requests from the user will be processed by the bot using a text recognition software and our own database with information about various dishes.
 
 \begin{figure}[htbp]
 \centerline{\includegraphics[width=\linewidth]{./pictures/facebook_overview}}
 \caption{Overview of the system}
-\label{fig}
+\label{fig:facebook_overview}
 \end{figure}
 \FloatBarrier
 
-If you are using Facebook Messenger, you don’t need a separate download. You can use the chatbot system by browsing the \emph{Before Order} page on Facebook, finding our page and clicking the Sending Message button.
+Using the Facebook Messenger as interface for our service, the user doesn't have to download a separate application and is already accustomed to navigate within the application and its usage. In order to use the service the user has to search for the \emph{Before Order} page on Facebook and send the profile a message by clicking the \emph{Send Message} button.
 
 \begin{figure}[htbp]
 \centerline{\includegraphics[width=\linewidth]{./pictures/facebook_profil}}
@@ -20,17 +20,19 @@ If you are using Facebook Messenger, you don’t need a separate download. You c
 
 \subsubsection{Facebook messenger}
 
+Given that the user has sent a message to the \emph{Before Order} service, the chat will be easily accessible from then on in the chatroom section of the Facebook Messenger application.
+
 \begin{figure}[htbp]
-\centerline{\includegraphics[width=\linewidth]{./pictures/facebook_friends}}
+\centerline{\includegraphics[height=\custompicheight]{./pictures/facebook_friends}}
 \caption{Homescreen of the Facebook Messenger}
 \label{fig:facebook_friends}
 \end{figure}
 \FloatBarrier
 
-If you select \emph{Before Order} from the messenger list, we ask you what information you need to provide information.
+By selecting \emph{Before Order} from the list, the user is now able to provide a picture or dish names in the Korean alphabet to the chatbot by sending an image or a text message as shown in Fig. \ref{fig:facebook_message}
 
 \begin{figure}[htbp]
-\centerline{\includegraphics[width=\linewidth]{./pictures/facebook_message}}
+\centerline{\includegraphics[height=\custompicheight]{./pictures/facebook_message}}
 \caption{Chatroom with the \emph{Before Order} chatbot}
 \label{fig:facebook_message}
 \end{figure}
@@ -38,28 +40,26 @@ If you select \emph{Before Order} from the messenger list, we ask you what infor
 
 \subsubsection{Chatbot input}
 
-The user sends a picture with the dishes written in letters. Most menus include no pictures of the dishes but only the names.
+If the user sends the menu in form of a picture, the dish names have to be spelled out and need to be visible. The user can either send a picture that he took in the past or use the camera function in the Facebook Messenger to capture a picture and directly send it to the chatbot.
 
 \begin{figure}[htbp]
-\centerline{\includegraphics[width=\linewidth]{./pictures/facebook_menu}}
+\centerline{\includegraphics[height=\custompicheight]{./pictures/facebook_menu}}
 \caption{Message to the chatbot including a picture of a menu}
 \label{fig:facebook_menu}
 \end{figure}
 \FloatBarrier
 
-We provide a list of those letters using the text recognition API in the image and allow the user select from the list.
+Using a text recognition API and analyzing the image we are able to provide a list with all the found and supported dish names. The user is now able to select a dish that he wants more detailed information about as shown in Fig. \ref{fig:facebook_response}.
 
 \begin{figure}[htbp]
-\centerline{\includegraphics[width=\linewidth]{./pictures/facebook_response}}
+\centerline{\includegraphics[height=\custompicheight]{./pictures/facebook_response}}
 \caption{Response of the chatbot with all the found dishes}
 \label{fig:facebook_response}
 \end{figure}
 \FloatBarrier
 
-The user selects the food for which information is to be provided in the list.
-
 \begin{figure}[htbp]
-\centerline{\includegraphics[width=\linewidth]{./pictures/facebook_response_selection}}
+\centerline{\includegraphics[height=\custompicheight]{./pictures/facebook_response_selection}}
 \caption{User selecting a dish from the list}
 \label{fig:facebook_response_selection}
 \end{figure}
@@ -77,13 +77,13 @@ The user selects the food for which information is to be provided in the list.
 \subsubsection{Chatbot output}
 
 \begin{figure}[htbp]
-\centerline{\includegraphics[width=\linewidth]{./pictures/facebook_dish_information}}
+\centerline{\includegraphics[height=\custompicheight]{./pictures/facebook_dish_information}}
 \caption{Detailed informations about the selected dish}
 \label{fig:facebook_dish_information}
 \end{figure}
 \FloatBarrier
 
-Although we can not represent it in this prototype, we plan to provide information from our internal database. Users can get photos, materials, and descriptions of food.
+Although we can not represent it in this prototype, we plan to provide information from our internal database. Users will be able to receive images of the dishes and a detailed description with ingredients.
 
 \subsubsection{Exit}
 If you need information about other menus, please feel free to send us a message.
