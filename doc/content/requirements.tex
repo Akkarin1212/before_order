@@ -12,7 +12,13 @@
 \item The user shall be able to select a dish in the analyzed menu and receive detailed information for this specific dish
 The system should provide information about the dishes in form of used ingredients, possible allergies and level of spiciness
 \item The system shall accept pictures and text as input – The user should be able to manually search for a dish if the analyzing of the picture returns no matches
-\item The system should distinguish between dish names and random letter clusters – The user may input pictures without a menu or the pictures that include random text in addition to the menu
+\item The system should distinguish between dish names and random letter clusters – The user may input pictures without a menu or the pictures that include random text in addition to the menu.
+\item This system must be able to retrieve information from the Database after subtracting the recognized number. The restaurant menus are often displayed along with the price figure and Vision api recognize the price value as part of the successive food name. The system should be able to remove following price figure before searching it on the Database.
+\item The system shall be able to provide reliable information about the menu 
+    \begin{itemize}
+    \item The system will use Roman alphabet conversion api to provide accurate information about Korean pronunciation. This guarantee user-friendly interface by reducing user’s difficulties of ordering food in Korean name
+    \item The system will refer to Wikipedia in the process of registering accurate food information in the Database. 
+    \end{itemize}
 \end{enumerate}
 
 \subsection{Working mechanisms}
@@ -25,5 +31,8 @@ Take a picture of a menu written in Korean alphabet and send it to the \emph{Bef
 The \emph{Before Order} service analyzes the input picture or text and tries to recognize the dishes.
 \item Select information\\
 If the user sent a whole menu he can select a single dish out of the list that \emph{Before Order} provides and receive more detailed information for that specific dish.
-\item Display detailed information\\\emph{Before Order} provides the user with detailed information about the requested dish using public APIs.
+\item Retrieve selected food information\\When a user selects a menu from the list, \emph{Before Order} retrieve the information about it from the DB we built. 
+\item Display detailed information\\\emph{Before Order} provides the user with detailed information
+about the requested dish.
+
 \end{enumerate}

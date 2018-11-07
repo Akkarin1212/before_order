@@ -69,8 +69,22 @@ Using a text recognition API and analyzing the image we are able to provide a li
 
 \begin{itemize}
 \item Get the information from database
-\item Server that can run chat-bot
+
+The information for dishes will be provided by our own database. Instead of using an open-source API for translating korean words to english we will be using an own mapping between english and korean dish names as the common translators don't support uncommon dish names or variants of dish names. Therefore each dish will have an english and an korean name associated with it to make it possible to search for dishes inside the database using korean letters. Hence most of the processes in and around the database will have to support and communicate using the UTF-8 encoding. The database will also contain a one or two sentence description for each dish, a list with its main ingredients and additional flags, such as \emph{spicy}. Managing and searching for information in this kind of database has the advantage, that:
+
+    \begin{itemize}
+    \item information for every dish is consistent and unlike as in popular search machines, such as \emph{Wikipedia} and \emph{Google}, every entry in the database will have the common information
+    \item we can be sure information and names in the database refers to a dish, which enables us to filter out random textsequences and unrelated korean words and sentences
+    \item we don't have to rely on the authenticity of information from a third party
+    \end{itemize}
+
+\item Server that can run chatbot and chatbot service
+
+We will use Azure Virtual Server to run our chatbot. There are three parts in our chatbot service in the virtual machine. First one is a script that is connected with Facebook Chatbot API. This script will have scenario to answer users' requests and call other scripts to provide information to the users. Second one is to recognize the texts from the picture that users give using Computer Vision API, and the last one is for interacting with the database. When the chatbot gets the input from the users, it will call the script for text recognition. And the results will be sent again as a list format to the users. The other input that user chooses in the list will be given to the chatbot. Then chatbot will call the script for retrieving data from the database and return the detailed information about the dish to the user.
+
 \item Vision api connection
+
+When chatbot calls a program that is connected with Computer Vision API, It will send the picture to the Computer Vision API and get the results from it. It includes a request using the key and endpoint of the Computer Vision API. When the program sends the request to the API, it gets a result as a json format. The program also includes refine part. It refines the result text and make a result as a list format.  it returns the list-format result to the chatbot.
 \end{itemize}
 \FloatBarrier
 
