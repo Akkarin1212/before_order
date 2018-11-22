@@ -8,6 +8,9 @@ from hangul_romanize.rule import academic
 # before_order files
 import db
 
+# Hangul matcher
+pattern = re.compile(r'([\p{Hangul}]+)', re.UNICODE)
+
 # calls the REST API of the azure ocr text recognition service with the image_url as picture to analyze
 # filters the text recognition result and only returns words in korean alphabet
 def analyze_pic(image_url):
@@ -29,8 +32,6 @@ def filter_analyze_result(analysis):
     # Extract the word bounding boxes and text.
     line_infos = [region["lines"] for region in analysis["regions"]]
     word_infos = []
-    # Only return strings in Hangul
-    pattern = re.compile(r'([\p{Hangul}]+)', re.UNICODE)
 
     for line in line_infos:
         for word_metadata in line:
@@ -46,7 +47,7 @@ def get_response(message):
     if dish:
         return str(dish[0]['name'] + " (" + hangul_romanize(dish[0]['ko_name']) + ") - " + dish[0]["description"])
     else:
-        return "No information available"
+        return "I can't seem to find information for a dish with that name."
 
 def get_response_image(url):
     #analyze_result = analyze_pic(url)
@@ -62,7 +63,6 @@ def get_response_image(url):
 def hangul_romanize(text):
         transliter = Transliter(academic)
         return transliter.translit(text)
-
 
 
 #analyze_result = analyze_pic("https://b.zmtcdn.com/data/menus/802/16726802/868b8b4241002eb389dfaa18d8243c71.jpg")
