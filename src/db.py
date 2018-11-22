@@ -8,6 +8,7 @@ def connect_db():
     database="food",
     ssl_ca="BaltimoreCyberTrustRoot.crt.pem"
     )
+    mydb.set_charset_collation('utf8mb4', 'utf8mb4_unicode_ci')
     return mydb
 
 # retrieves information for the given dish names in foreign language
