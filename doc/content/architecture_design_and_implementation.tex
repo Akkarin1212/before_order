@@ -1,10 +1,62 @@
 \section{Architecture Design \& Implementation}
 \subsection{Overall architecture}
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
 \centerline{\includegraphics[width=\linewidth]{./pictures/uml}}
 \caption{UML of our overall architecture}
 \label{fig:uml}
 \end{figure}
 \FloatBarrier
+
+\subsection{Directory organization}
+
+\begin{table}[htbp]
+\caption{Directory organization}
+\begin{tabularx}{\linewidth}{|X|X|X|}
+\toprule
+Directory & File names & Module names in use  \\
+\midrule
+./src & messenger.py & messenger  \\
+./src & fb\_bot.py &  fb\_bot \\
+./src & ssl\_certificate.pem db.py & db  \\
+./src & analyzer.py & analyzer  \\
+./tests & 
+\begin{tabularx}{\linewidth/3}{X} 
+\midrule
+test.txt \\
+test\_db.py	\\
+test\_json.py	 \\
+test.jpg  \\
+\end{tabularx}
+& test\\
+./db & food.mwb & db model  \\
+./doc & before\_order.tex before\_order.pdf & documentation  \\
+./doc/content & architecture\_design\_a nd\_implementation.tex development\_environ ment.tex introduction.tex requirements.tex specifications.tex& documentation  \\
+./doc/pictures & 
+\begin{tabularx}{\linewidth/3}{X}
+\midrule
+facebook\_dish\_info.png \\
+facebook\_friends.png \\
+facebook\_meun.png \\
+facebook\_message.png \\
+facebook\_overview.png \\
+facebook\_profil.png \\
+facebook\_response.png \\
+facebook\_response\_selection.png	\\	
+uml.png \\
+class\_uml.mdj \\
+\end{tabularx}
+& documentation \\
+\end{tabularx}
+\end{table}
+\FloatBarrier
+
+\subsubsection{Module 1 - messenger}
+
+
+\subsubsection{Module 2 - fb\_bot}
+
+\subsubsection{Module 3 - analyzer}
+
+\subsubsection{Module 4 - db}
 
