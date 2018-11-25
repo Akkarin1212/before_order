@@ -45,8 +45,27 @@ class\_uml.mdj
 \end{table}
 \FloatBarrier
 
-\subsubsection{Module 1 - messenger}
-Module messenger provide connection with the facebook messenger API. 
+\subsubsection{Module 1 - messenger} 
+
+\begin{itemize}
+
+\item Purpose:
+
+The Facebook Messenger chatbot needs Facebook Messenger API to interact with the facebook users who need our service. This module can provides a connection with the Facebook Messenger API, so chatbot can send message to users and receive message from users through this module. It is the most important factor that allows the messenger to function.  
+
+\item Functionality:
+
+This module makes chatbot be able to send messages to the users and receive messages from the users. There is a Facebook server between users and our chatbot server. Facebook provides a webhook function and it gives our chatbot server alerts that user sent a message to our chatbot or other user reaction to our chatbot (entering chatbot chatroom etc.) and messages. Through this module, we can give a response to users immediately and can provide our service. When users send messages, we can implement the appropriate chatbot action and build scenarios in which to communicate with users. It also provides the transmission of text as well as other extension files, such as pictures and files, to enable context-sensitive types of messages to be sent. 
+
+\item Location of Source Code:
+
+/project/src
+
+\item Class component:
+
+The message module has message class. It extends BaseMessenger class, that is provided from the fbmessenger package. fbmessenger is a python library to communicate with the Facebook Messenger API's. It provides various functionality and class to implement the chatbot service. 
+
+\end{itemize}
 
 \subsubsection{Module 2 - fb\_bot}
 
