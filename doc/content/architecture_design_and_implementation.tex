@@ -142,6 +142,8 @@ The methods that class fb\_bot has are as follows:
 
 \subsubsection {Purpose}
 
+A module analyzer has an important role in our service. We need to extract korean letters from the picture, and find the dish names about which users want to know. Therefore, this module is necessary to analyze image. It linked with our main service function, Azure OCR Text Recognition API. And, it makes requests to get analysis results from it. It also serves final information that user wants. 
+
 \subsubsection {Functionality}
 
 
@@ -152,6 +154,8 @@ The methods that class fb\_bot has are as follows:
 
 
 \begin{itemize}
+
+\item pattern hangul\_pattern :
 \item analyze\_pic(url):string[*] :
 \item filter\_analyze\_result(analysis):string[*] :
 \item get\_response(message):string :
