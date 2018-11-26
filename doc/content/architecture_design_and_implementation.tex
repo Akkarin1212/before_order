@@ -45,9 +45,7 @@ class\_uml.mdj
 \end{table}
 \FloatBarrier
 
-\subsubsection{Module 1 - messenger} 
-
-\begin{itemize}
+\subsection{Module 1 - messenger} 
 
 \begin{figure}[htbp]
 \centerline{\includegraphics[width=\linewidth]{./pictures/class_messenger}}
@@ -56,19 +54,20 @@ class\_uml.mdj
 \end{figure}
 \FloatBarrier
 
-\item Purpose:
+\subsubsection {Purpose}
 
 The Facebook Messenger chatbot needs Facebook Messenger API to interact with the facebook users who need our service. This module can provides a connection with the Facebook Messenger API, so chatbot can send message to users and receive message from users through this module. It is the most important factor that allows the messenger to function.  
 
-\item Functionality:
+\subsubsection {Functionality}
 
 This module makes chatbot be able to send messages to the users and receive messages from the users. There is a Facebook server between users and our chatbot server. Facebook provides a webhook function and it gives our chatbot server alerts that user sent a message to our chatbot or other user reaction to our chatbot (entering chatbot chatroom etc.) and messages. Through this module, we can give a response to users immediately and can provide our service. When users send messages, we can implement the appropriate chatbot action and build scenarios in which to communicate with users. It also provides the transmission of text as well as other extension files, such as pictures and files, to enable context-sensitive types of messages to be sent. 
 
-\item Location of Source Code:
+\subsubsection {Location of Source Code}
 
 /project/src
 
-\item Class component:
+
+\subsubsection {Class component}
 
 The messenger module has messenger class. It extends BaseMessenger class, that is provided from the fbmessenger package. fbmessenger is a python library to communicate with the Facebook Messenger API's. It provides various functionality and class to implement the chatbot service. The class doesnt have a variable and it has serveral methods for service. The methods that class has are as follows:
 
@@ -79,12 +78,10 @@ The messenger module has messenger class. It extends BaseMessenger class, that i
 \item init\_bot(self: BaseMessenger): the init\_bot method initiate our chatbot. It initiate greetings and actions list that the users can select when they start our chatbot. And, it also provides customized buttons function that the users can choose during the scenario. 
 \end{itemize} 
 
-\end{itemize}
 \FloatBarrier
 
-\subsubsection{Module 2 - fb\_bot}
+\subsection{Module 2 - fb\_bot}
 
-\begin{itemize}
 
 \begin{figure}[htbp]
 \centerline{\includegraphics[width=\linewidth]{./pictures/class_fb_bot}}
@@ -93,21 +90,23 @@ The messenger module has messenger class. It extends BaseMessenger class, that i
 \end{figure}
 \FloatBarrier
 
-\item Purpose:
+
+\subsubsection {Purpose}
 
 We need an intermediary between our chatbot and functionality of our service. A module fb\_bot plays such a role. The module fb\_bot allows each module to be grouped and became a bridge that enables our services to be delivered to users.
 
 
-\item Functionality: 
+\subsubsection {Functionality}
 
 The fb\_bot module handles messages from the module messenger to reply to users. When the messenger gets text from the users, the module processes a message in condition of the text. If a messenger gets a picture type file from the users, the module fb\_bot calls a module analyzer to analyze picture that gets from user and get information of dishes from our database. And It process our data that is from module analyzer agian, and sends back to the module messenger to give results to the users. The module fb\_bot has several functionalties to interact with other modules.
 
 
-\item Location of Source Code:
+\subsubsection {Location of Source Code}
 
 /project/src
 
-\item Class component:
+
+\subsubsection {Class component}
 
 The class fb\_bot has three member variables. They are as follows:
 
@@ -127,13 +126,12 @@ The methods that class fb\_bot has are as follows:
 \item webhook():string :
 \end{itemize} 
 
-\end{itemize}
 \FloatBarrier
 
 
-\subsubsection{Module 3 - analyzer}
+\subsection{Module 3 - analyzer}
 
-\begin{itemize}
+
 
 \begin{figure}[htbp]
 \centerline{\includegraphics[width=\linewidth]{./pictures/class_analyzer}}
@@ -142,16 +140,15 @@ The methods that class fb\_bot has are as follows:
 \end{figure}
 \FloatBarrier
 
-\item Purpose: 
+\subsubsection {Purpose}
 
-\item Functionality:
+\subsubsection {Functionality}
 
 
-\item Location of Source Code:
-
+\subsubsection {Location of Source Code}
 /project/src
 
-\item Class component:
+\subsubsection {Class component}
 
 
 \begin{itemize}
@@ -162,12 +159,9 @@ The methods that class fb\_bot has are as follows:
 \item hangul\_romanizer(hangul):string : 
 \end{itemize} 
 
-\end{itemize}
 \FloatBarrier
 
-\subsubsection{Module 4 - db}
-
-\begin{itemize}
+\subsection{Module 4 - db}
 
 \begin{figure}[htbp]
 \centerline{\includegraphics[width=\linewidth]{./pictures/class_db}}
@@ -176,21 +170,21 @@ The methods that class fb\_bot has are as follows:
 \end{figure}
 \FloatBarrier
 
-\item Purpose:  
+\subsubsection {Purpose}
 
 The module db is used to get information of dishes from the database server.   
-
-\item Functionality: 
+\subsubsection {Functionality}
 
 We have own MySQL database that stores description of the dishes. The module makes a connection with the MySQL database server and it can send queries to the database server and get a result of the query. 
 
-\item Location of Source Code:
+
+\subsubsection {Location of Source Code}
 
 /project/src
 
-\item Class component:
+\subsubsection {Class component}
 
- The class has no member variable, and the class methods are as follows:
+The class has no member variable, and the class methods are as follows:
 
 \begin{itemize}
 \item connect\_db():mysql.connector :  It makes a connector object to connect with our MySQL server to send the query to it. It includes the connection information to connect to database. It uses mysql.connector library to get the mysql.connector class. 
@@ -199,6 +193,5 @@ We have own MySQL database that stores description of the dishes. The module mak
 
 \end{itemize} 
 
-\end{itemize}
 \FloatBarrier
 
