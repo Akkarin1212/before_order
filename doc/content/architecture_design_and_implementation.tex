@@ -49,6 +49,13 @@ class\_uml.mdj
 
 \begin{itemize}
 
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=\linewidth]{./pictures/class_messenger}}
+\caption{Class Messenger}
+\label{fig:class_messenger}
+\end{figure}
+\FloatBarrier
+
 \item Purpose:
 
 The Facebook Messenger chatbot needs Facebook Messenger API to interact with the facebook users who need our service. This module can provides a connection with the Facebook Messenger API, so chatbot can send message to users and receive message from users through this module. It is the most important factor that allows the messenger to function.  
@@ -63,13 +70,135 @@ This module makes chatbot be able to send messages to the users and receive mess
 
 \item Class component:
 
-The message module has message class. It extends BaseMessenger class, that is provided from the fbmessenger package. fbmessenger is a python library to communicate with the Facebook Messenger API's. It provides various functionality and class to implement the chatbot service.  
+The messenger module has messenger class. It extends BaseMessenger class, that is provided from the fbmessenger package. fbmessenger is a python library to communicate with the Facebook Messenger API's. It provides various functionality and class to implement the chatbot service. The class doesnt have a variable and it has serveral methods for service. The methods that class has are as follows:
+
+\begin{itemize}
+\item \_\_init\_\_(self:BaseMessenger, page\_access\_token): constructor of the messenger class. it makes messegner object.
+\item message(self: BaseMessenger, message): The message function is called when we get a "message" object from the webhook. The webhook can send a few different json messages, and we can specify which message types we want to receive when we set up the webhook. And message() is general when the user sends us a message. So in the message function, when we receive a message we first send an achknowledgment to the user that we received it and computing it. 
+\item postback(self: BaseMessenger, message): This method can handle a postback webhook. The Facebook Messenger supports the postback meun for users. The users can invoke an action in our bot through the button. When users press the button to invoke some actions in cahtbot, chatbot receives a postback webhook from the Facebook Messenger server. This function can handle this webhook, so can give some responses to the user.
+\item init\_bot(self: BaseMessenger): the init\_bot method initiate our chatbot. It initiate greetings and actions list that the users can select when they start our chatbot. And, it also provides customized buttons function that the users can choose during the scenario. 
+\end{itemize} 
 
 \end{itemize}
+\FloatBarrier
 
 \subsubsection{Module 2 - fb\_bot}
 
+\begin{itemize}
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=\linewidth]{./pictures/class_fb_bot}}
+\caption{Class fb\_bot}
+\label{fig:class_fb_bot}
+\end{figure}
+\FloatBarrier
+
+\item Purpose:
+
+We need an intermediary between our chatbot and functionality of our service. A module fb\_bot plays such a role. The module fb\_bot allows each module to be grouped and became a bridge that enables our services to be delivered to users.
+
+
+\item Functionality: 
+
+The fb\_bot module handles messages from the module messenger to reply to users. When the messenger gets text from the users, the module processes a message in condition of the text. If a messenger gets a picture type file from the users, the module fb\_bot calls a module analyzer to analyze picture that gets from user and get information of dishes from our database. And It process our data that is from module analyzer agian, and sends back to the module messenger to give results to the users. The module fb\_bot has several functionalties to interact with other modules.
+
+
+\item Location of Source Code:
+
+/project/src
+
+\item Class component:
+
+The class fb\_bot has three member variables. They are as follows:
+
+\begin{itemize}
+\item ACCESS\_TOKEN:string : ACCESS\_TOKEN is for accessing to the the chatbot messenger. Each chatbot has an unique ACCESS\_TOKEN. A module fb\_bot can get messages from the bot using the token. We need it everytime we send a message to facebook. 
+\item VERIFY\_TOKEN:string : it is used when facebook senta a first message to check if the server exists. the VERIFY\_TOKEN can be anything we want to, we just have to specify it when setting up the webhook.
+\item HELP:string : When user write 'help' or type some messages that is not related to request for our service, chatbot sents this string.
+\end{itemize} 
+
+The methods that class fb\_bot has are as follows:
+
+\begin{itemize}
+\item process\_message(message):dict :
+\item process\_image(message):dict :
+\item dishes\_to\_payload(dishes, current\_dish):string :
+\item dishes\_to\_quick\_reply(dishes, current\_dish):string :
+\item webhook():string :
+\end{itemize} 
+
+\end{itemize}
+\FloatBarrier
+
+
 \subsubsection{Module 3 - analyzer}
 
+\begin{itemize}
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=\linewidth]{./pictures/class_analyzer}}
+\caption{Class Analyzer}
+\label{fig:class_analyzer}
+\end{figure}
+\FloatBarrier
+
+\item Purpose: 
+
+\item Functionality:
+
+
+\item Location of Source Code:
+
+/project/src
+
+\item Class component:
+
+
+\begin{itemize}
+\item analyze\_pic(url):string[*] :
+\item filter\_analyze\_result(analysis):string[*] :
+\item get\_response(message):string :
+\item get\_response\_image(url):string[*] :
+\item hangul\_romanizer(hangul):string : 
+\end{itemize} 
+
+\end{itemize}
+\FloatBarrier
+
 \subsubsection{Module 4 - db}
+
+\begin{itemize}
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=\linewidth]{./pictures/class_db}}
+\caption{Class db}
+\label{fig:class_db}
+\end{figure}
+\FloatBarrier
+
+\item Purpose:  
+
+The module db is used to get information of dishes from the database server.   
+
+\item Functionality: 
+
+We have own MySQL database that stores description of the dishes. The module makes a connection with the MySQL database server and it can send queries to the database server and get a result of the query. 
+
+\item Location of Source Code:
+
+/project/src
+
+\item Class component:
+
+ The class has no member variable, and the class methods are as follows:
+
+\begin{itemize}
+\item connect\_db():mysql.connector :  It makes a connector object to connect with our MySQL server to send the query to it. It includes the connection information to connect to database. It uses mysql.connector library to get the mysql.connector class. 
+
+\item get\_dishes(mydb, dish\_names):dict : It sends a query for getting dishes information to the database server using the connector object. The query is for getting descriptions of specific dish name that the module analyzer gives as a parameter. And it returns the results from the database as dictionary.  
+
+\end{itemize} 
+
+\end{itemize}
+\FloatBarrier
 
