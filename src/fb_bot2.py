@@ -15,6 +15,7 @@ from fbmessenger.sender_actions import SenderAction
 import beforeorder
 import regex as re
 import json
+import os
 
 ACCESS_TOKEN = 'EAARtu5AvLUMBAIMs1tKSkm2DY1JlEAiq0vYeXxdfToBCcuIIVgm1pRgk6zOxI7lBEwO4tK8wvvWor4JtAmpFik6dGPsj4KiYDR92KbsMUsMv1u7VfTnsJ2Nw1GGFUD399nNHTW6BK9InfxFuQz6FTHBvs51S4IGVG2B4SdnRWJlmoMEH4MJ8o70mIiIZD'
 VERIFY_TOKEN = 'EAARtu5AvLUMBAIMs1tKSkm2DY1JlEAiq0vYeXxd'
@@ -177,4 +178,5 @@ def webhook():
     return ''
 
 if __name__ == "__main__":
-    app.run()
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
