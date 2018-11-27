@@ -102,7 +102,7 @@ class Messenger(BaseMessenger):
         messenger.send_action(SenderAction(sender_action='typing_on').to_dict())
 
         action = process_message(message)
-        res = self.send(action.to_dict, 'RESPONSE')
+        res = self.send(action.to_dict(), 'RESPONSE')
         messenger.send_action(SenderAction(sender_action='typing_off').to_dict())
         app.logger.debug('Response: {}'.format(res))
 
