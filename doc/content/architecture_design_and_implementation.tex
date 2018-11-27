@@ -119,11 +119,11 @@ The class fb\_bot has three member variables. They are as follows:
 The methods that class fb\_bot has are as follows:
 
 \begin{itemize}
-\item process\_message(message):dict :
-\item process\_image(message):dict :
-\item dishes\_to\_payload(dishes, current\_dish):string :
-\item dishes\_to\_quick\_reply(dishes, current\_dish):string :
-\item webhook():string :
+\item process\_message(message):dict : This method returns reply message based on the type of message sent by the user. There are several conditions in it, and it retuns specific reply that the user wants. It can be the scenario handler for our chatbot. I can handle all kinds of type of messages.
+\item process\_image(message):dict : This method is only for the condition when user send picture type message that users want to know about. It calls analyzer method to get an infromation of dishes and returns description about dishes. It includes all the action messages while the picture analyzes and the information receives. In the action messages, the quick reply type message is included in here. 
+\item dishes\_to\_payload(dishes, current\_dish):string : The method is used in the dishes\_to\_quick\_reply method. It saves dish list as a jason format.
+\item dishes\_to\_quick\_reply(dishes, current\_dish):string : The method is for replying to quick reply message type. A quick reply message is one of the message type that Facebook Messenger supports, it consists of the button list. When the fb\_bot module gets dish list from the analyzer module, it creates the quick reply buttons for user to choose one of them to get a information. It calls dishes\_to\_payload method to save the list of dishes that it havent given yet to the users.
+\item webhook():string : The webhook method controls the connection between Facebook Messeneger server and the chatbot server. It uses Flask, the microframework for python. It uses VERIFY\_TOKEN to check if the server exists. And if it exists, It initiates our chatbot service using init\_bot method in messenger module.
 \end{itemize} 
 
 \FloatBarrier
@@ -146,6 +146,7 @@ A module analyzer has an important role in our service. We need to extract korea
 
 \subsubsection {Functionality}
 
+The module analyzer processes image through the OCR Text Recongnition API to extract the text from the image. When it gets result from Recognition API, it searchs only krorean letters from the result. It becomes a list of the dishes that users want to know. Then analyzer sends a query to the db module to search description for that dish name. It also romanizes korean dish name to roman and provides the name with description to the fb\_bot.
 
 \subsubsection {Location of Source Code}
 /project/src
@@ -155,12 +156,12 @@ A module analyzer has an important role in our service. We need to extract korea
 
 \begin{itemize}
 
-\item pattern hangul\_pattern :
-\item analyze\_pic(url):string[*] :
-\item filter\_analyze\_result(analysis):string[*] :
-\item get\_response(message):string :
-\item get\_response\_image(url):string[*] :
-\item hangul\_romanizer(hangul):string : 
+\item pattern hangul\_pattern : The pattern is used to distinguish whether the text is hangul or not.
+\item analyze\_pic(url):string[*] : The analyze\_pic() method checks the image url that comes from users is available, and sends request to the Azure OCR Text Recognition API. It needs specific json type input, so it organizes the format and returns result that is from the API.
+\item filter\_analyze\_result(analysis):string[*] : The method filter analyze result() gets analysis as a parameter. This the return value of analyze\_pic() method. When it called, the method extracts only korean letters from the analysis string list. The pattern hangul\_pattern is used to distinguish korean letters from the list. 
+\item get\_response(message):string : A get\_response method is called when user sends dish name. It calls db module to get information of dish from database server, and it combines dishe's korean name, its roman name and description. When it creates final description, it returns the description.
+\item get\_response\_image(url):string[*] : The method is called when user sends picture of menu. It calls filter\_analyze\_result method to get the korean dishes list and it sends query to find information from the server. and it returns the description of dish.
+\item hangul\_romanizer(hangul):string : The hangul romanizer method romanize dish name. it uses python library hangul\_romanize. It support Tarnsliter class and it just makes korean text to roman. 
 \end{itemize} 
 
 \FloatBarrier
