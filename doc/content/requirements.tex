@@ -16,8 +16,12 @@ The system should provide information about the dishes in form of used ingredien
 \item This system must be able to retrieve information from the Database after subtracting the recognized number. The restaurant menus are often displayed along with the price figure and Vision api recognize the price value as part of the successive food name. The system should be able to remove following price figure before searching it on the Database.
 \item The system shall be able to provide reliable information about the menu 
     \begin{itemize}
-    \item The system will use Roman alphabet conversion api to provide accurate information about Korean pronunciation. This guarantee user-friendly interface by reducing user’s difficulties of ordering food in Korean name
-    \item The system will refer to Wikipedia in the process of registering accurate food information in the Database. 
+    \item The system will support Roman alphabet conversion in order to provide accurate information about Korean pronunciation. 
+Namely, the system will provide Roman Alphabet of Korean dish name so that it can show users how to pronounce Korean dish name in English. This will guarantee user-friendly interface by reducing user’s difficulties of ordering food in Korean name.
+    \item The system will refer to Wikipedia in the process of registering accurate food information in the Database.  
+    \item  The system will be able to recognize and categorize ‘same meaning, differently expressed’ words as same group. 
+e.g. Two different mark ‘자장면’ and ‘짜장면’ will be recognized as a same dish by the system in the case of retrieving information from the database.
+
     \end{itemize}
 \end{enumerate}
 
