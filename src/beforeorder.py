@@ -50,10 +50,10 @@ def get_response(message):
         return "I can't seem to find information for a dish with that name."
 
 def get_response_image(url):
-    #analyze_result = analyze_pic(url)
+    analyze_result = analyze_pic(url)
     
-    test_data = test_json.test()
-    analyze_result = filter_analyze_result(test_data)
+    #test_data = test_json.test()
+    #analyze_result = filter_analyze_result(test_data)
 
     mydb = db.connect_db()
     return db.get_dishes(mydb, analyze_result)
