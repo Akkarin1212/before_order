@@ -4,6 +4,7 @@ import regex as re
 import test_json
 from hangul_romanize import Transliter
 from hangul_romanize.rule import academic
+import os
 
 # before_order files
 import db
@@ -15,7 +16,7 @@ hangul_pattern = re.compile(r'([\p{Hangul}]+)', re.UNICODE)
 # filters the text recognition result and only returns words in korean alphabet
 def analyze_pic(image_url):
     assert image_url
-    subscription_key = "d4dab977c06043a7b30045c22bd4dbf6"
+    subscription_key = os.environ['SUBSCRIPTION_KEY']
     vision_base_url = "https://eastus.api.cognitive.microsoft.com//vision/v2.0/"
     ocr_url = vision_base_url + "ocr"
 
@@ -51,21 +52,11 @@ def get_response(message):
 
 def get_response_image(url):
     analyze_result = analyze_pic(url)
-    
-    #test_data = test_json.test()
-    #analyze_result = filter_analyze_result(test_data)
-
     mydb = db.connect_db()
     return db.get_dishes(mydb, analyze_result)
     
 
 # romanizes hangul strings using hangul_romanize library
 def hangul_romanize(text):
-        transliter = Transliter(academic)
-        return transliter.translit(text)
-
-
-#analyze_result = analyze_pic("https://b.zmtcdn.com/data/menus/802/16726802/868b8b4241002eb389dfaa18d8243c71.jpg")
-
-#mydb = db.connect_db()
-#available_dishes = db.get_dishes(mydb, analyze_result)
+    transliter = Transliter(academic)
+    return transliter.translit(text)
