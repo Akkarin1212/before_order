@@ -1,1 +1,1 @@
-web: python src/manage.py
+web: python src/fb_bot2.py
