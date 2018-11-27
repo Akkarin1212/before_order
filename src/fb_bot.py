@@ -19,7 +19,7 @@ import os
 
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
-HELP = 'Simply sent me a dish name in Hangul or the image of a menu that you want to translate.'
+HELP = 'To get started sent me a dish name written in Hangul or the image of a Korean menu that you would like to translate.'
 
 def process_message(message):
     app.logger.debug('Message received: {}'.format(message))
@@ -118,40 +118,41 @@ class Messenger(BaseMessenger):
     def postback(self, message):
         payload = message['postback']['payload']
         if 'start' in payload:
-            txt = ('Hey, let\'s get started! Try sending me one of these messages: '
-                   'text, image, video, "quick replies", '
-                   'webview-compact, webview-tall, webview-full')
+            txt = ('Hey, let\'s get started! Try sending me either an image of a Korean menu '
+                    'or simply send me the name of a Korean dish written in Hangul.')
             self.send({'text': txt}, 'RESPONSE')
         if 'help' in payload:
-            self.send({'text': 'A help message or template can go here.'}, 'RESPONSE')
+            self.send({'text': HELP}, 'RESPONSE')
 
     def optin(self, message):
         pass
 
     def init_bot(self):
         self.add_whitelisted_domains('https://facebook.com/')
-        greeting = GreetingText(text='Welcome to the fbmessenger bot demo.')
-        self.set_messenger_profile(greeting.to_dict())
 
+        #get started button
         get_started = GetStartedButton(payload='start')
-        self.set_messenger_profile(get_started.to_dict())
+        messenger_profile = MessengerProfile(get_started=get_started)
+        res = self.set_messenger_profile(messenger_profile.to_dict())
+        app.logger.debug('Response: {}'.format(res))
 
+        #persistent menu entries
         menu_item_1 = PersistentMenuItem(
             item_type='postback',
             title='Help',
             payload='help',
         )
-        menu_item_2 = PersistentMenuItem(
-            item_type='web_url',
-            title='Messenger Docs',
-            url='https://developers.facebook.com/docs/messenger-platform',
-        )
+        # menu_item_2 = PersistentMenuItem(
+        #     item_type='web_url',
+        #     title='Messenger Docs',
+        #     url='https://developers.facebook.com/docs/messenger-platform',
+        # )
         persistent_menu = PersistentMenu(menu_items=[
             menu_item_1,
-            menu_item_2
+        #    menu_item_2
         ])
-
-        res = self.set_messenger_profile(persistent_menu.to_dict())
+        messenger_profile = MessengerProfile(persistent_menus=[persistent_menu])
+        res = self.set_messenger_profile(messenger_profile.to_dict())
         app.logger.debug('Response: {}'.format(res))
 
 
