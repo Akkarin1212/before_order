@@ -31,7 +31,7 @@ def process_message(message):
         return process_image(message)
 
     elif 'quick_reply' in message['message']:
-        match = beforeorder.pattern.search(message['message'].get('text'))
+        match = beforeorder.hangul_pattern.search(message['message'].get('text'))
         if match:
             msg = message['message']["quick_reply"]["payload"]
             dishes = json.loads(msg)
@@ -40,7 +40,7 @@ def process_message(message):
             return response.to_dict()
 
     elif 'text' in message['message']:
-        match = beforeorder.pattern.search(message['message'].get('text'))
+        match = beforeorder.hangul_pattern.search(message['message'].get('text'))
         if match:        
             response = Text(text=beforeorder.get_response(match.group(0)))
             return response.to_dict()

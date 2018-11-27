@@ -9,7 +9,7 @@ from hangul_romanize.rule import academic
 import db
 
 # Hangul matcher
-pattern = re.compile(r'([\p{Hangul}]+)', re.UNICODE)
+hangul_pattern = re.compile(r'([\p{Hangul}]+)', re.UNICODE)
 
 # calls the REST API of the azure ocr text recognition service with the image_url as picture to analyze
 # filters the text recognition result and only returns words in korean alphabet
@@ -36,7 +36,7 @@ def filter_analyze_result(analysis):
     for line in line_infos:
         for word_metadata in line:
             for word_info in word_metadata["words"]:
-                match = pattern.search(word_info["text"])
+                match = hangul_pattern.search(word_info["text"])
                 if match:
                     word_infos.append(match.group(0))
     return word_infos

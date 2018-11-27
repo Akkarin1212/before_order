@@ -6,7 +6,7 @@ def connect_db():
     user="goalkeeper@beforeordermysqlserver",
     password="Christian0118!",
     database="food",
-    ssl_ca="BaltimoreCyberTrustRoot.crt.pem"
+    ssl_ca="ssl_certificiate.pem"
     )
     mydb.set_charset_collation('utf8mb4', 'utf8mb4_unicode_ci')
     return mydb

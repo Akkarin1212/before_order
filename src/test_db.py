@@ -8,17 +8,13 @@ def test_connection():
     assert mydb
 
 def test_get_dish_info():
-    #info = db.get_dishes_info(mydb, "김밥")
-    info = db.get_dish_info(mydb, "김밥")
+    info = db.get_dishes(mydb, "김밥")
     assert info
-    assert info["name"]
-    for key,value in info.items():
-        print("Key: " + str(key) + " Value: " + str(value))
+    assert info[0]["name"]
 
 
 def test_get_available_dishes():
-    #dish = db.get_available_dishes(mydb, "김밥")
-    dish = db.get_available_dishes(mydb, ["김밥"])
+    dish = db.get_dishes(mydb, ["김밥"])
     assert dish
 
 # tests
