@@ -1,6 +1,7 @@
 # Before Order
 
-Before Order is an Chatbot for translating menues
+By using the Before Order software, costumers are able to translate menus and get information about foreign dishes without going through the hassle of asking foreign staff in restaurants.
+The software runs using the *** chatbot API and can be used from within the messenger on any platform that *** supports.
 
 ## Getting Started
 
@@ -15,7 +16,7 @@ See Installing for information about using this programm.
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read the [Code of Conduct](CODE_OF_CONDUCT.md) for further details.
 
 ## Authors
 
@@ -28,6 +29,6 @@ See also the list of [contributors](https://github.com/Akkarin1212/before_order/
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
 ## Acknowledgments

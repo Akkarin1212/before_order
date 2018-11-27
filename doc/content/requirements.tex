@@ -1,0 +1,38 @@
+\section{Requirements}
+\subsection{Functional requirements}
+\begin{enumerate}[label=A.\arabic*]
+\item The system will be usable on a smartphone – In order to enable the user to use the provided service while the user is moving around the system has to be reachable from a mobile platform. The user also shall be able to conveniently use a camera to take pictures of the menu without having to type and search for one dish name at a time.
+\item The system should be usable on notebooks, tablets and stationary computers – The user shall be able to use the service at home or similar environments to be able to gather information about restaurants and dishes and help with the selection of a place to eat.
+\item The system will run on Android, iOS and Windows 7/8/10 – The system shall run on the most popular operation systems in order to be accessible for as many users in the target audience as possible.
+\item The system will run within a common third-party software – The user shall be provided with an intensively tested and user-friendly interface. In addition, the user should not have to download a separate application to use the functionalities of this system but instead use this service as an extension to a familiar and popular application.
+\item The system shall provide contact information to enable the user to contact the support – The user shall be able to receive help in case of questions or problems with the service. In addition, the user should be able to report any bugs that he finds while using the service or give feedback about it.
+\item The user shall be able to save information about a dish – The user should be able to retrieve information about dishes that he once searched for without having to query the search again. The user should also be able to read the information after closing and reopening the application.
+\item The system shall support the Korean alphabet as input
+\item The system will display information about dishes in the English language and alphabet
+\item The user shall be able to select a dish in the analyzed menu and receive detailed information for this specific dish
+The system should provide information about the dishes in form of used ingredients, possible allergies and level of spiciness
+\item The system shall accept pictures and text as input – The user should be able to manually search for a dish if the analyzing of the picture returns no matches
+\item The system should distinguish between dish names and random letter clusters – The user may input pictures without a menu or the pictures that include random text in addition to the menu.
+\item This system must be able to retrieve information from the Database after subtracting the recognized number. The restaurant menus are often displayed along with the price figure and Vision api recognize the price value as part of the successive food name. The system should be able to remove following price figure before searching it on the Database.
+\item The system shall be able to provide reliable information about the menu 
+    \begin{itemize}
+    \item The system will use Roman alphabet conversion api to provide accurate information about Korean pronunciation. This guarantee user-friendly interface by reducing user’s difficulties of ordering food in Korean name
+    \item The system will refer to Wikipedia in the process of registering accurate food information in the Database. 
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Working mechanisms}
+\begin{enumerate}
+\item Register service\\
+User will search for \emph{Before Order} in the Facebook and enter the Facebook Page of the chatbot. Registration process is finished.
+\item Input information\\
+Take a picture of a menu written in Korean alphabet and send it to the \emph{Before Order} chat bot.
+\item Recognition process\\
+The \emph{Before Order} service analyzes the input picture or text and tries to recognize the dishes.
+\item Select information\\
+If the user sent a whole menu he can select a single dish out of the list that \emph{Before Order} provides and receive more detailed information for that specific dish.
+\item Retrieve selected food information\\When a user selects a menu from the list, \emph{Before Order} retrieve the information about it from the DB we built. 
+\item Display detailed information\\\emph{Before Order} provides the user with detailed information
+about the requested dish.
+
+\end{enumerate}
