@@ -143,20 +143,31 @@ class Messenger(BaseMessenger):
         app.logger.debug('Response: {}'.format(res))
 
         #persistent menu entries
+
         menu_item_1 = PersistentMenuItem(
+            item_type='postback',
+            title='Get Started',
+            payload='start'
+        )
+
+        menu_item_2 = PersistentMenuItem(
             item_type='postback',
             title='Help',
             payload='help',
         )
-        # menu_item_2 = PersistentMenuItem(
+     
+        
+        # menu_item_3 = PersistentMenuItem(
         #     item_type='web_url',
         #     title='Messenger Docs',
         #     url='https://developers.facebook.com/docs/messenger-platform',
         # )
+
         persistent_menu = PersistentMenu(menu_items=[
             menu_item_1,
-        #    menu_item_2
+            menu_item_2
         ])
+        
         messenger_profile = MessengerProfile(persistent_menus=[persistent_menu])
         res = self.set_messenger_profile(messenger_profile.to_dict())
         app.logger.debug('Response: {}'.format(res))
