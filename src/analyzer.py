@@ -40,6 +40,10 @@ def filter_analyze_result(analysis):
                 match = hangul_pattern.search(word_info["text"])
                 if match:
                     word_infos.append(match.group(0))
+    
+    #delete redundancy
+    word_infos = list(set(word_infos))
+   
     return word_infos
 
 def get_response(message):
