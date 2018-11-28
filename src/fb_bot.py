@@ -49,7 +49,8 @@ def process_message(message):
 
 def process_image(message):
     if message['message']['attachments'][0]['type'] == 'image':
-        if '.gif' in message['message']['attachments'][0]["payload"]["url"]:
+        url = message['message']['attachments'][0]["payload"]["url"]
+        if '.gif' in url:
             return Text(text="Sadly i can't analyze gif files. Lets try it again with a standart image format.")
 
         #let the user know we're analyzing the image
@@ -57,11 +58,16 @@ def process_image(message):
         messenger.send(Text("Analyzing the image...").to_dict(), 'RESPONSE')
         messenger.send_action(SenderAction(sender_action='typing_on').to_dict())
 
-        #let the analyzer do its job and get a list of dishes that are visible in the image
-        dishes = analyzer.get_response_image(message["message"]["attachments"][0]["payload"]["url"])
+        # first check the image size and type
+        error = analyzer.check_image_info(url)
+        if error:
+            return Text(text=error) 
+
+        # then let the analyzer do its job and get a list of dishes that are visible in the image
+        dishes = analyzer.get_response_image(url)
         qrs = dishes_to_quick_reply(dishes)
         if not qrs:
-            return Text(text='I didn\'t find any dishes. Try again with a different angle or try writting the dish in Hangul.', quick_replies=qrs) 
+            return Text(text='I didn\'t find any dishes. Try again with a different angle or try writting the dish in Hangul.') 
         return Text(text='Choose a dish for more informations.', quick_replies=qrs)
 
 def dishes_to_payload(dishes, current_dish = ''):

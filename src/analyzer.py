@@ -1,10 +1,10 @@
 import requests
 import json
 import regex as re
-import test_json
 from hangul_romanize import Transliter
 from hangul_romanize.rule import academic
 import os
+import urllib.request
 
 # before_order files
 import db
@@ -54,9 +54,33 @@ def get_response_image(url):
     analyze_result = analyze_pic(url)
     mydb = db.connect_db()
     return db.get_dishes(mydb, analyze_result)
-    
 
 # romanizes hangul strings using hangul_romanize library
 def hangul_romanize(text):
     transliter = Transliter(academic)
     return transliter.translit(text)
+
+def check_image_info(url):
+    if not url:
+        return "Missing image URL, can't check the file."
+    info = get_url_info(url)
+    if info:
+        type = info["Content-Type"]
+        size = int(info["Content-Length"])/float(1<<20)
+        # check that file size is supported
+        if (not type == "image/png") and (not type == "image/jpeg") and (not type == "image/jpg"):
+            return "The image format {} is not supported.".format(type)
+        # check that file size is less than 4MB
+        if size > 4:
+            return "The image is too large to analyze ({}). Try cropping the picture and send it again.".format(size)
+    else:
+        return "Can't fetch informations for the url: {}".format(url)
+
+def get_url_info(url):
+    d = urllib.request.urlopen(url)
+    return d.info()
+ 
+url = "https://b.zmtcdn.com/data/menus/802/16726802/868b8b4241002eb389dfaa18d8243c71.jpg"
+error = check_image_info(url)
+if error:
+    print(error)
