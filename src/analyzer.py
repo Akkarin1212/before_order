@@ -64,6 +64,9 @@ def check_image_info(url):
     if not url:
         return "Missing image URL, can't check the file."
     info = get_url_info(url)
+    if not info :
+        return "Can't fetch informations for the url: {}".format(url)
+
     # check that file type is supported
     if info["Content-Type"]:
         type = info["Content-Type"]
@@ -75,8 +78,6 @@ def check_image_info(url):
         size = int(info["Content-Length"])/float(1<<20)
         if size > 4:
             return "The image is too large to analyze ({}). Try cropping the picture and send it again.".format(size)
-    else:
-        return "Can't fetch informations for the url: {}".format(url)
 
 def get_url_info(url):
     d = urllib.request.urlopen(url)
