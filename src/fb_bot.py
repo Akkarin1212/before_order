@@ -112,8 +112,10 @@ def get_google_image_url(dish):
     r = requests.get(searchUrl)
     response = r.content.decode('utf-8')
     result = json.loads(response)
-    if result["items"][0]["link"]:
-        return result["items"][0]["link"]
+    for image in result["items"]:
+        # make sure the file is actually supported (jpeg)
+        if image["mime"] == "image/jpeg":
+            return image["link"]
 
 def send_addition_image_for_dish(dish):
     url = get_google_image_url(dish)
