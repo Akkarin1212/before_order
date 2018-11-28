@@ -16,9 +16,12 @@ import analyzer
 import regex as re
 import json
 import os
+import requests
 
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
+GOOGLE_KEY = os.environ['GOOGLE_KEY']
+GOOGLE_ENGINE = os.environ['GOOGLE_ENGINE']
 HELP = 'To get started sent me a dish name written in Hangul or the image of a Korean menu that you would like to translate.'
 
 def process_message(message):
@@ -33,6 +36,8 @@ def process_message(message):
     elif 'quick_reply' in message['message']:
         match = analyzer.hangul_pattern.search(message['message'].get('text'))
         if match:
+            send_addition_image_for_dish(match.group(0))
+            # analyze the payload and create a new payload without the current dish
             msg = message['message']["quick_reply"]["payload"]
             dishes = json.loads(msg)
             qrs = dishes_to_quick_reply(dishes, message['message'].get('text'))
@@ -40,7 +45,8 @@ def process_message(message):
 
     elif 'text' in message['message']:
         match = analyzer.hangul_pattern.search(message['message'].get('text'))
-        if match:        
+        if match:
+            send_addition_image_for_dish(match.group(0))
             return Text(text=analyzer.get_response(match.group(0)))
         else:
             return Text(text="I can only look up dishes written in Hangul. Please try again.")
@@ -98,6 +104,22 @@ def dishes_to_quick_reply(dishes, current_dish = ''):
 
     return quick_replies.QuickReplies(quick_replies=replies)
 
+def get_google_image_url(dish):
+    startIndex = '1'
+    searchUrl = "https://www.googleapis.com/customsearch/v1?q=" + \
+        dish + "&start=" + startIndex + "&key=" + GOOGLE_KEY + "&cx=" + GOOGLE_ENGINE + \
+        "&searchType=image"
+    r = requests.get(searchUrl)
+    response = r.content.decode('utf-8')
+    result = json.loads(response)
+    if result["items"][0]["link"]:
+        return result["items"][0]["link"]
+
+def send_addition_image_for_dish(dish):
+    url = get_google_image_url(dish)
+    response = Image(url=url)
+    messenger.send(response.to_dict(), "RESPONSE")
+
 class Messenger(BaseMessenger):
     def __init__(self, page_access_token):
         self.page_access_token = page_access_token
@@ -130,8 +152,8 @@ class Messenger(BaseMessenger):
         if 'help' in payload:
             self.send({'text': HELP}, 'RESPONSE')
         if 'example' in payload:
-            txt = ('If you text to me 김밥 or send a picture for menu name 김밥, I will send you a description like this:' 
-            'Gimbap (gimbab) - Cooked rice and other ingredients that are rolled in dried sheets of laver seewead and served in bite-sized slices.')
+            txt = ('If you text to me 김밥 or send a picture for menu name 김밥, I will send you a description like this: '
+                + analyzer.get_response("김밥"))
             self.send({'text': txt}, 'RESPONSE')
 
     def optin(self, message):
