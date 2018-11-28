@@ -129,6 +129,10 @@ class Messenger(BaseMessenger):
             self.send({'text': txt}, 'RESPONSE')
         if 'help' in payload:
             self.send({'text': HELP}, 'RESPONSE')
+        if 'example' in payload:
+            txt = ('If you text to me 김밥 or send a picture for menu name 김밥, I will send you a description like this:' 
+            'Gimbap (gimbab) - Cooked rice and other ingredients that are rolled in dried sheets of laver seewead and served in bite-sized slices.')
+            self.send({'text': txt}, 'RESPONSE')
 
     def optin(self, message):
         pass
@@ -155,9 +159,15 @@ class Messenger(BaseMessenger):
             title='Help',
             payload='help',
         )
+
+        menu_item_3 = PersistentMenuItem(
+            item_type='postback',
+            title='Example',
+            payload='example',
+        )
      
         
-        # menu_item_3 = PersistentMenuItem(
+        # menu_item_4 = PersistentMenuItem(
         #     item_type='web_url',
         #     title='Messenger Docs',
         #     url='https://developers.facebook.com/docs/messenger-platform',
@@ -165,9 +175,10 @@ class Messenger(BaseMessenger):
 
         persistent_menu = PersistentMenu(menu_items=[
             menu_item_1,
-            menu_item_2
+            menu_item_2,
+            menu_item_3
         ])
-        
+
         messenger_profile = MessengerProfile(persistent_menus=[persistent_menu])
         res = self.set_messenger_profile(messenger_profile.to_dict())
         app.logger.debug('Response: {}'.format(res))
