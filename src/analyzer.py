@@ -64,13 +64,15 @@ def check_image_info(url):
     if not url:
         return "Missing image URL, can't check the file."
     info = get_url_info(url)
-    if info:
+    # check that file type is supported
+    if info["Content-Type"]:
         type = info["Content-Type"]
-        size = int(info["Content-Length"])/float(1<<20)
-        # check that file size is supported
         if (not type == "image/png") and (not type == "image/jpeg") and (not type == "image/jpg"):
             return "The image format {} is not supported.".format(type)
-        # check that file size is less than 4MB
+
+    # check that file size is less than 4MB
+    if info["Content-Length"]:
+        size = int(info["Content-Length"])/float(1<<20)
         if size > 4:
             return "The image is too large to analyze ({}). Try cropping the picture and send it again.".format(size)
     else:
