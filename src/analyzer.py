@@ -40,6 +40,7 @@ def filter_analyze_result(analysis):
                 match = hangul_pattern.search(word_info["text"])
                 if match:
                     word_infos.append(match.group(0))
+    
     return word_infos
 
 def get_response(message):
