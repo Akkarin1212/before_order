@@ -31,7 +31,9 @@ def process_message(message):
         return Text(text="What do you want me to do?")
 
     elif 'attachments' in message['message']:
-        return process_image(message)
+        # only images are supportes as attachments
+        if message['message']['attachments'][0]['type'] == 'image':
+            return process_image(message["message"]["attachments"][0]["payload"]["url"])
 
     elif 'quick_reply' in message['message']:
         match = analyzer.hangul_pattern.search(message['message'].get('text'))
@@ -70,28 +72,26 @@ def process_dish_name(dish, quick_replies = ''):
         return Text(text=response)
     return Text(text="I can't seem to find information for a dish with that name.")
 
-def process_image(message):
-    if message['message']['attachments'][0]['type'] == 'image':
-        url = message['message']['attachments'][0]["payload"]["url"]
-        if '.gif' in url:
-            return Text(text="Sadly i can't analyze gif files. Lets try it again with a standart image format.")
+def process_image(url):
+    if '.gif' in url:
+        return Text(text="Sadly i can't analyze gif files. Lets try it again with a standart image format.")
 
-        #let the user know we're analyzing the image
-        app.logger.debug('Image received')
-        messenger.send(Text("Analyzing the image...").to_dict(), 'RESPONSE')
-        messenger.send_action(SenderAction(sender_action='typing_on').to_dict())
+    #let the user know we're analyzing the image
+    app.logger.debug('Image received')
+    messenger.send(Text("Analyzing the image...").to_dict(), 'RESPONSE')
+    messenger.send_action(SenderAction(sender_action='typing_on').to_dict())
 
-        # first check the image size and type
-        error = analyzer.check_image_info(url)
-        if error:
-            return Text(text=error) 
+    # first check the image size and type
+    error = analyzer.check_image_info(url)
+    if error:
+        return Text(text=error) 
 
-        # then let the analyzer do its job and get a list of dishes that are visible in the image
-        dishes = analyzer.get_response_image(url)
-        qrs = dishes_to_quick_reply(dishes)
-        if not qrs:
-            return Text(text='I didn\'t find any dishes. Try again with a different angle or try writting the dish in Hangul.') 
-        return Text(text='Choose a dish for more informations.', quick_replies=qrs)
+    # then let the analyzer do its job and get a list of dishes that are visible in the image
+    dishes = analyzer.get_response_image(url)
+    qrs = dishes_to_quick_reply(dishes)
+    if not qrs:
+        return Text(text='I didn\'t find any dishes. Try again with a different angle or try writting the dish in Hangul.') 
+    return Text(text='Choose a dish for more informations.', quick_replies=qrs)
 
 # Creates a json list of dishes with the korean name followed by the english name in brackets
 def dishes_to_payload(dishes):
