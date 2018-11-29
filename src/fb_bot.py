@@ -124,15 +124,12 @@ def filter_ko_dish_from_list(dishes, dish_to_filter):
     result = []
     for dish in dishes:
         match = analyzer.hangul_pattern.search(dish)
-        filter_match = analyzer.hangul_pattern.search(dish)
+        filter_match = analyzer.hangul_pattern.search(dish_to_filter)
         # skip this dish if both have the same korean name
         if match.group(0) == filter_match.group(0):
             continue
         result.append(dish)
-    return result
-
-        
-        
+    return result       
 
 def get_google_image_url(dish):
     startIndex = '1'
