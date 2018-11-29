@@ -44,28 +44,31 @@ def process_message(message):
 
             # look up the informations for this dish
             cur_dish = match.group(0)
-            dish_info = analyzer.get_response(cur_dish)
-            # if we have informations for the dish, send a picture first and then the dish description
-            if dish_info:
-                send_addition_image_for_dish(cur_dish)
-                response = analyzer.dish_info_to_string(dish_info)
-                return Text(text=response, quick_replies=qrs)
-
-            return Text(text="I can't seem to find information for a dish with that name.", quick_replies=qrs)
+            process_dish_name(cur_dish, qrs)
 
     elif 'text' in message['message']:
         match = analyzer.hangul_pattern.search(message['message'].get('text'))
         if match:
-            dish_info = analyzer.get_response(match.group(0))
-            if dish_info:
-                send_addition_image_for_dish(match.group(0))
-                response = analyzer.dish_info_to_string(dish_info)
-                return Text(text=response)
-            return Text(text="I can't seem to find information for a dish with that name.")
+            process_dish_name(match.group(0))
         else:
             return Text(text="I can only look up dishes written in Hangul. Please try again.")
     
     return Text(text=HELP)
+
+# Uses the given dish name to get informations for it from the db,
+# formats the informations, sends a picture of the dish
+# and returns a Text() object containing the final text and optional quick replies
+def process_dish_name(dish, quick_replies = ''):
+    dish_info = analyzer.get_response(dish)
+    # we got the dish in the db, now process the info
+    if dish_info:
+        send_addition_image_for_dish(dish)
+        response = analyzer.dish_info_to_string(dish_info)
+        # include optional quick replies to our final Text()
+        if quick_replies:
+            return Text(text=response, quick_replies=quick_replies)
+        return Text(text=response)
+    return Text(text="I can't seem to find information for a dish with that name.")
 
 def process_image(message):
     if message['message']['attachments'][0]['type'] == 'image':
@@ -180,10 +183,10 @@ class Messenger(BaseMessenger):
             self.send({'text': txt}, 'RESPONSE')
         if 'help' in payload:
             self.send({'text': HELP}, 'RESPONSE')
+        # used to give the user an example of how detailed informations for a dish look like
         if 'example' in payload:
-            txt = ('If you text to me 김밥 or send a picture for menu name 김밥, I will send you a description like this: '
-                + analyzer.get_response("김밥"))
-            self.send({'text': txt}, 'RESPONSE')
+            # simply analyzes the text in the message as if the user would have written '김밥'
+            self.send(process_dish_name("김밥").to_dict, 'RESPONSE')
 
     def optin(self, message):
         pass
