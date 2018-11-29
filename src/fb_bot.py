@@ -186,7 +186,7 @@ class Messenger(BaseMessenger):
         # used to give the user an example of how detailed informations for a dish look like
         if 'example' in payload:
             # simply analyzes the text in the message as if the user would have written '김밥'
-            self.send(process_dish_name("김밥").to_dict, 'RESPONSE')
+            self.send(process_dish_name("김밥").to_dict(), 'RESPONSE')
 
     def optin(self, message):
         pass
