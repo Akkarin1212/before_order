@@ -44,12 +44,12 @@ def process_message(message):
 
             # look up the informations for this dish
             cur_dish = match.group(0)
-            process_dish_name(cur_dish, qrs)
+            return process_dish_name(cur_dish, qrs)
 
     elif 'text' in message['message']:
         match = analyzer.hangul_pattern.search(message['message'].get('text'))
         if match:
-            process_dish_name(match.group(0))
+            return process_dish_name(match.group(0))
         else:
             return Text(text="I can only look up dishes written in Hangul. Please try again.")
     
