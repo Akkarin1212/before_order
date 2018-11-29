@@ -36,18 +36,32 @@ def process_message(message):
     elif 'quick_reply' in message['message']:
         match = analyzer.hangul_pattern.search(message['message'].get('text'))
         if match:
-            send_addition_image_for_dish(match.group(0))
-            # analyze the payload and create a new payload without the current dish
-            msg = message['message']["quick_reply"]["payload"]
-            dishes = json.loads(msg)
-            qrs = dishes_to_quick_reply(dishes, message['message'].get('text'))
-            return Text(text=analyzer.get_response(match.group(0)), quick_replies=qrs)
+            # read the payload and create a list of new quick replies without the dish we are currently getting informations for
+            payload = message['message']["quick_reply"]["payload"]
+            dishes = json.loads(payload) # payload consists of a list of dishes in json format
+            dishes = filter_ko_dish_from_list(dishes, message['message'].get('text'))
+            qrs = dishes_to_quick_reply(dishes)
+
+            # look up the informations for this dish
+            cur_dish = match.group(0)
+            dish_info = analyzer.get_response(cur_dish)
+            # if we have informations for the dish, send a picture first and then the dish description
+            if dish_info:
+                send_addition_image_for_dish(cur_dish)
+                response = analyzer.dish_info_to_string(dish_info)
+                return Text(text=response, quick_replies=qrs)
+
+            return Text(text="I can't seem to find information for a dish with that name.", quick_replies=qrs)
 
     elif 'text' in message['message']:
         match = analyzer.hangul_pattern.search(message['message'].get('text'))
         if match:
-            send_addition_image_for_dish(match.group(0))
-            return Text(text=analyzer.get_response(match.group(0)))
+            dish_info = analyzer.get_response(match.group(0))
+            if dish_info:
+                send_addition_image_for_dish(match.group(0))
+                response = analyzer.dish_info_to_string(dish_info)
+                return Text(text=response)
+            return Text(text="I can't seem to find information for a dish with that name.")
         else:
             return Text(text="I can only look up dishes written in Hangul. Please try again.")
     
@@ -76,33 +90,49 @@ def process_image(message):
             return Text(text='I didn\'t find any dishes. Try again with a different angle or try writting the dish in Hangul.') 
         return Text(text='Choose a dish for more informations.', quick_replies=qrs)
 
-def dishes_to_payload(dishes, current_dish = ''):
+# Creates a json list of dishes with the korean name followed by the english name in brackets
+def dishes_to_payload(dishes):
     payload = []
     for dish in dishes:
-        # skip the dish that we are got informations for just now
-        if current_dish and dish == current_dish:
-            continue
-
+        # dish is a dictionary when we get the informations from the database
         if type(dish) is dict:
             payload.append(dish["ko_name"]+"("+dish["name"]+")")
+        # and a string when we get it from the payload of a facebook quick reply
         else:
             payload.append(dish)
     return json.dumps(payload)
 
-def dishes_to_quick_reply(dishes, current_dish = ''):
+# Creates a QuickReply object for every dish in dishes
+# The name of a QuickReply consist of the Korean and English name of a dish
+# and its payload consists of a list of all other dishes in json format
+def dishes_to_quick_reply(dishes):
     replies = []
-    payload = dishes_to_payload(dishes, current_dish)
+    payload = dishes_to_payload(dishes)
     for dish in dishes:
-        # skip the dish that we are got informations for just now
-        if current_dish and dish == current_dish:
-            continue
-
+        # dish is a dictionary when we get the informations from the database
         if type(dish) is dict:
             replies.append(quick_replies.QuickReply(title=dish["ko_name"]+"("+dish["name"]+")", payload=payload))
+        # and a string when we get it from the payload of a facebook quick reply
         else:
             replies.append(quick_replies.QuickReply(title=dish, payload=payload))
 
     return quick_replies.QuickReplies(quick_replies=replies)
+
+# Iterates over the dishes list and filters out every occurence of dish_to_filter
+# using the hangul pattern matcher of analyzer modul (only the korean letters in both strings are compared!)
+def filter_ko_dish_from_list(dishes, dish_to_filter):
+    result = []
+    for dish in dishes:
+        match = analyzer.hangul_pattern.search(dish)
+        filter_match = analyzer.hangul_pattern.search(dish)
+        # skip this dish if both have the same korean name
+        if match.group(0) == filter_match.group(0):
+            continue
+        result.append(dish)
+    return result
+
+        
+        
 
 def get_google_image_url(dish):
     startIndex = '1'

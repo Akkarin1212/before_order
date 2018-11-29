@@ -46,13 +46,12 @@ def filter_analyze_result(analysis):
    
     return word_infos
 
-def get_response(message):
+# gets information for the given dish name and returns the first occurence in the database
+def get_response(dish_name):
     mydb = db.connect_db()
-    dish = db.get_dishes(mydb, message)
+    dish = db.get_dishes(mydb, dish_name)
     if dish:
-        return str(dish[0]['name'] + " (" + hangul_romanize(dish[0]['ko_name']) + ") - " + dish[0]["description"])
-    else:
-        return "I can't seem to find information for a dish with that name."
+        return dish[0]
 
 def get_response_image(url):
     analyze_result = analyze_pic(url)
@@ -63,6 +62,13 @@ def get_response_image(url):
 def hangul_romanize(text):
     transliter = Transliter(academic)
     return transliter.translit(text)
+
+# Receives a dictionary containing the dish description and the names and puts it together into a string
+def dish_info_to_string(dish_info):
+    if dish_info:
+        return str(dish_info['name'] 
+            + " (" + hangul_romanize(dish_info['ko_name']) 
+            + ") - " + dish_info["description"])
 
 def check_image_info(url):
     if not url:
