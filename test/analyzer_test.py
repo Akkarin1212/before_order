@@ -32,16 +32,20 @@ def filter_analyze_result(analysis):
 
     for line in line_infos:
         for word_metadata in line:
+            word = ""    
             for word_info in word_metadata["words"]:
-                match = hangul_pattern.search(word_info["text"])
-                if match:
-                    word_infos.append(match.group(0))
+                word += word_info["text"]
+            match = hangul_pattern.search(word)
+            if match:
+                word_infos.append(match.group(0))
+            
+                
     
-    word_infos = list(set(word_infos))
+    #word_infos = list(set(word_infos))
     print(word_infos)
     
     return word_infos
 
 
-analyze_pic("http://mstyle-food.co.kr/data/file/menu/3717576197_mDUVpKaF_6263df6a81760c4c4aef2f5fa90286bb8e6c81b5.jpg")
+analyze_pic("http://mblogthumb1.phinf.naver.net/20151115_28/hdsign88_1447595064651TPRAx_JPEG/1.JPG?type=w2")
 
