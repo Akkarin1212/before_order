@@ -34,12 +34,16 @@ def filter_analyze_result(analysis):
     line_infos = [region["lines"] for region in analysis["regions"]]
     word_infos = []
 
+    #extract korean text (recongnize each word)
     for line in line_infos:
         for word_metadata in line:
+            word = ""    
             for word_info in word_metadata["words"]:
-                match = hangul_pattern.search(word_info["text"])
-                if match:
-                    word_infos.append(match.group(0))
+                word += word_info["text"]
+            match = hangul_pattern.search(word)
+            if match:
+                word_infos.append(match.group(0))
+            
     
     #delete redundancy
     word_infos = list(set(word_infos))
