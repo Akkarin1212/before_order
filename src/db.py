@@ -26,6 +26,7 @@ def get_dishes(mydb, ko_dishes):
     # create sql cursor for querying statements, get result as dictionary
     cursor = mydb.cursor(buffered=True,dictionary=True)
     infos = []
+    result = []
     for ko_dish in ko_dishes:
         query = ("SELECT dish.name, dish.description, ko_en.name as 'ko_name', LOCATE(ko_en.name, '{0}') AS 'pos', LENGTH(ko_en.name) AS 'len', x.len, x.pos "
                 "FROM dish, ko_en left outer join (SELECT LOCATE(ko_en.name, '{0}') AS 'pos', "
@@ -38,17 +39,31 @@ def get_dishes(mydb, ko_dishes):
                 "ORDER BY pos".format(ko_dish))
         print(query)
         cursor.execute(query)
-        for row in cursor:
-                
-            infos.append(row)
+
+ 
+
+        for row in cursor:                    
+            result.append(row)
+        
+        #handle mutiple row for one query result
+
+        if len(result) > 1 :
+            dish_name = []
+            for dish in result:
+                dish_name.append(dish['ko_name'])
+            dish_name = "".join(dish_name)
+            result[len(result)-1]['ko_name'] = dish_name
+            infos.append(result[len(result)-1])
+        
+        elif len(result) == 1 :
+            infos.append(result[0])
+
+        else :
+            pass
+
+        result.clear()
+
     cursor.close()
-
-    if len(infos) > 0 :
-        pass
-        #handle for multiple results
-
-
-
 
     #if it has one or zero directly returns infos 
     return infos
