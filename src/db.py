@@ -26,8 +26,8 @@ def get_dishes(mydb, ko_dishes):
     # create sql cursor for querying statements, get result as dictionary
     cursor = mydb.cursor(buffered=True,dictionary=True)
     infos = []
-    result = []
     for ko_dish in ko_dishes:
+        result = []        
         query = ("SELECT dish.name, dish.description, ko_en.name as 'ko_name', LOCATE(ko_en.name, '{0}') AS 'pos', LENGTH(ko_en.name) AS 'len', x.len, x.pos "
                 "FROM dish, ko_en left outer join (SELECT LOCATE(ko_en.name, '{0}') AS 'pos', "
                 "MAX(LENGTH(ko_en.name)) AS 'len' "
@@ -48,10 +48,10 @@ def get_dishes(mydb, ko_dishes):
         #handle mutiple row for one query result
 
         if len(result) > 1 :
-            dish_name = []
+            dish_name = ""
             for dish in result:
-                dish_name.append(dish['ko_name'])
-            dish_name = "".join(dish_name)
+                dish_name = dish_name + dish['ko_name']
+
             result[len(result)-1]['ko_name'] = dish_name
             infos.append(result[len(result)-1])
         
@@ -60,8 +60,6 @@ def get_dishes(mydb, ko_dishes):
 
         else :
             pass
-
-        result.clear()
 
     cursor.close()
 
