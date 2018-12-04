@@ -48,11 +48,14 @@ def get_dishes(mydb, ko_dishes):
         #handle mutiple row for one query result
 
         if len(result) > 1 :
-            dish_name = ""
+            ko_dish_name = ""
+            en_dish_name = ""
             for dish in result:
-                dish_name = dish_name + dish['ko_name']
+                ko_dish_name = ko_dish_name + dish['ko_name']
+                en_dish_name = en_dish_name + "-" + dish['name']
 
-            result[len(result)-1]['ko_name'] = dish_name
+            result[len(result)-1]['ko_name'] = ko_dish_name
+            result[len(result)-1]['name'] = en_dish_name
             infos.append(result[len(result)-1])
         
         elif len(result) == 1 :
