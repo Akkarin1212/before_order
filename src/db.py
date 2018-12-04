@@ -53,7 +53,10 @@ def get_dishes(mydb, ko_dishes):
             for dish in result:
                 ko_dish_name = ko_dish_name + dish['ko_name']
                 en_dish_name = en_dish_name + "-" + dish['name']
-
+            
+            # remove first '-'
+            en_dish_name = en_dish_name[1:]
+            
             result[len(result)-1]['ko_name'] = ko_dish_name
             result[len(result)-1]['name'] = en_dish_name
             infos.append(result[len(result)-1])
