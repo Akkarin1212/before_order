@@ -112,6 +112,10 @@ def dishes_to_quick_reply(dishes):
     replies = []
     payload = dishes_to_payload(dishes)
     for dish in dishes:
+        # we can only send max 11 quick reply buttons to facebook
+        if len(replies) > 10:
+            break
+
         # dish is a dictionary when we get the informations from the database
         if type(dish) is dict:
             replies.append(quick_replies.QuickReply(title=dish["ko_name"]+"("+dish["name"]+")", payload=payload))
