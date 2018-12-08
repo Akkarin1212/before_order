@@ -75,6 +75,7 @@ def dish_info_to_string(dish_info):
             + " (" + hangul_romanize(dish_info['ko_name']) 
             + ") - " + dish_info["description"])
 
+        # adds chili emoji if the food is spicy
         else :
             return str(dish_info['name']  
             + " (" + hangul_romanize(dish_info['ko_name']) 
