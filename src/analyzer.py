@@ -96,8 +96,3 @@ def check_image_info(url):
 def get_url_info(url):
     d = urllib.request.urlopen(url)
     return d.info()
- 
-url = "https://b.zmtcdn.com/data/menus/802/16726802/868b8b4241002eb389dfaa18d8243c71.jpg"
-error = check_image_info(url)
-if error:
-    print(error)
