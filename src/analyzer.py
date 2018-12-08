@@ -78,7 +78,7 @@ def dish_info_to_string(dish_info):
         else :
             return str(dish_info['name']  
             + " (" + hangul_romanize(dish_info['ko_name']) 
-            + ") "+ u'U0001F336' + " - " + dish_info["description"])
+            + ") "+ u'\U0001F336' + " - " + dish_info["description"])
 
 
 def check_image_info(url):
