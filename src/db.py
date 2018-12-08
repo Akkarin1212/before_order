@@ -28,7 +28,7 @@ def get_dishes(mydb, ko_dishes):
     infos = []
     for ko_dish in ko_dishes:
         result = []        
-        query = ("SELECT dish.name, dish.description, ko_en.name as 'ko_name', LOCATE(ko_en.name, '{0}') AS 'pos', LENGTH(ko_en.name) AS 'len', x.len, x.pos "
+        query = ("SELECT dish.name, dish.description, ko_en.name as 'ko_name', LOCATE(ko_en.name, '{0}') AS 'pos', LENGTH(ko_en.name) AS 'len', x.len, x.pos, dish.is_spicy "
                 "FROM dish, ko_en left outer join (SELECT LOCATE(ko_en.name, '{0}') AS 'pos', "
                 "MAX(LENGTH(ko_en.name)) AS 'len' "
                 "FROM ko_en "

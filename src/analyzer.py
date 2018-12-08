@@ -16,7 +16,7 @@ hangul_pattern = re.compile(r'([\p{Hangul}]+)', re.UNICODE)
 # filters the text recognition result and only returns words in korean alphabet
 def analyze_pic(image_url):
     assert image_url
-    subscription_key = os.environ['SUBSCRIPTION_KEY']
+    subscription_key = 'd4dab977c06043a7b30045c22bd4dbf6'
     vision_base_url = "https://eastus.api.cognitive.microsoft.com//vision/v2.0/"
     ocr_url = vision_base_url + "ocr"
 
@@ -70,9 +70,16 @@ def hangul_romanize(text):
 # Receives a dictionary containing the dish description and the names and puts it together into a string
 def dish_info_to_string(dish_info):
     if dish_info:
-        return str(dish_info['name'] 
+        if dish_info['is_spicy'] == 0 :
+            return str(dish_info['name'] 
             + " (" + hangul_romanize(dish_info['ko_name']) 
             + ") - " + dish_info["description"])
+
+        else :
+            return str(dish_info['name']  
+            + " (" + hangul_romanize(dish_info['ko_name']) 
+            + ") "+ u'U0001F336' + " - " + dish_info["description"])
+
 
 def check_image_info(url):
     if not url:
