@@ -1,0 +1,11 @@
+\section{Discussion}
+
+The Software Engineering course of the last three months have taught us all the importance of communication among team members and have been a valuable time to experience practical aspect of software implementation. But it is also true that there have been more difficulties than expected ever since we decided to implement the menu translation chat-bot, ‘Before Order’.
+
+ First and foremost, the range of food that we had to provide was too wide. This was a problem because our team decided to build our own database and put dish information one by one. Because it was impossible to register tens of thousands of unique dish name in a team of four, the scope of information provided was reduced from nationwide to Wangsimni. That is, we’ve included all the foods of the common name (e.g. ramen) as a default, but had trouble including all the unique dishes or diverse expressions of the same dish at each restaurant (e.g. Aori ramen). Therefor it is part of our improvement task to keep up with menus and dish information that are constantly updated in restaurants. 
+
+ In the beginning, we had a problem about delayed server response. This also was a big problem because chat-bot was meant to provide a quick response to the questions asked by users. Using the existing ngrok tool, we found that the network delay was caused by the long distance between the U.S and Korea when the Facebook server in U.S sends a webhook to our server in Korea. So to solve this problem, we created U.S located hosting server that can receive webhook by using Heroku. As a result the delay was significantly reduced because it enabled the communication within same country, U.S.
+
+ Lastly apart form all these, there were matters to be considered In detail. For vision api issue, the text was not recognized when the picture quality was poor or there was a space between the names of the foods in the picture. The latter problem occurred because each letter written in space was recognized as a different word. Therefor we have changed the code so that dish names can be recognized not only in word units but also in line units.
+
+ Even though we did not achieved everything as we planned, but we still achieved a lot of things. We are very grateful that we can have this kind of experience because it was an opportunity to learn teamwork and improve personally. 
