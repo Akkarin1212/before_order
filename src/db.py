@@ -64,7 +64,7 @@ def get_dishes(mydb, ko_dishes):
             # indicate if the dish_name is complete or not
        
             if ko_dish != ko_dish_name :
-                result[len(result-1)]['description'] = "(information may be missing and only partial dish names were found) " + result[len(result-1)]['description']
+                result[len(result)-1]['description'] = "(information may be missing and only partial dish names were found) " + result[len(result)-1]['description']
             
             infos.append(result[len(result)-1])
 
