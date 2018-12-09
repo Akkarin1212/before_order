@@ -53,20 +53,37 @@ def get_dishes(mydb, ko_dishes):
             for dish in result:
                 ko_dish_name = ko_dish_name + dish['ko_name']
                 en_dish_name = en_dish_name + "-" + dish['name']
-            
+
+                
+            print(dish['description'])
+            print(ko_dish)
+            print(ko_dish_name)    
+
             # remove first '-'
             en_dish_name = en_dish_name[1:]
             
             result[len(result)-1]['ko_name'] = ko_dish_name
             result[len(result)-1]['name'] = en_dish_name
             infos.append(result[len(result)-1])
-        
+
+            # indicate if the dish_name is complete or not
+            if ko_dish != ko_dish_name :
+                infos[0]['description'] = "(information may be missing and only partial dish names were found) " + infos[0]['description']
+            
+
         elif len(result) == 1 :
+                    
             infos.append(result[0])
+            
+            # indicate if the dish_name is complete or not
+            if ko_dish != result[0]['ko_name'] :
+                infos[0]['description'] = "(information may be missing and only partial dish names were found) " + infos[0]['description']
+            
 
         else :
             pass
 
+        
     cursor.close()
 
     #if it has one or zero directly returns infos 
