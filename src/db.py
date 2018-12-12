@@ -16,7 +16,9 @@ def connect_db():
 # returns dictionary with database columns as keys
 def get_dishes(mydb, ko_dishes):
     assert mydb != None
-    assert ko_dishes
+    # we dont need to connect to db when there are no dishes to check
+    if not ko_dishes:
+        return []
     # transform to list
     if type(ko_dishes) is not list:
         ko_dishes = [ko_dishes]
@@ -25,19 +27,63 @@ def get_dishes(mydb, ko_dishes):
     cursor = mydb.cursor(buffered=True,dictionary=True)
     infos = []
     for ko_dish in ko_dishes:
-        # query = ("SELECT dish.name, dish.description, ko_en.name as ko_name"
-        #         "FROM dish, ko_en "
-        #         "WHERE ko_en.name = '{0}' "
-        #         "LIMIT 1".format(ko_dish))
-
-        query = ("SELECT dish.name, dish.description, ko_en.name as 'ko_name' "
-                "FROM dish, ko_en "
+        result = []        
+        query = ("SELECT dish.name, dish.description, ko_en.name as 'ko_name', LOCATE(ko_en.name, '{0}') AS 'pos', LENGTH(ko_en.name) AS 'len', x.len, x.pos, dish.is_spicy "
+                "FROM dish, ko_en left outer join (SELECT LOCATE(ko_en.name, '{0}') AS 'pos', "
+                "MAX(LENGTH(ko_en.name)) AS 'len' "
+                "FROM ko_en "
+                "Group by pos "
+                "HAVING pos != 0) x on x.len = len "
                 "WHERE dish.id = ko_en.dish_id "
-                "AND ko_en.name = '{0}' "
-                "LIMIT 1".format(ko_dish))
-
+                "HAVING pos != 0 AND x.len = len AND x.pos = pos "
+                "ORDER BY pos".format(ko_dish))
+        print(query)
         cursor.execute(query)
-        for row in cursor:
-            infos.append(row)
+
+ 
+
+        for row in cursor:                    
+            result.append(row)
+        
+        #handle mutiple row for one query result
+
+        if len(result) > 1 :
+            ko_dish_name = ""
+            en_dish_name = ""
+            for dish in result:
+                ko_dish_name = ko_dish_name + dish['ko_name']
+                en_dish_name = en_dish_name + "-" + dish['name']
+
+                
+            # remove first '-'
+            en_dish_name = en_dish_name[1:]
+            
+            result[len(result)-1]['ko_name'] = ko_dish_name
+            result[len(result)-1]['name'] = en_dish_name
+       
+            # indicate if the dish_name is complete or not
+       
+            if ko_dish != ko_dish_name :
+                result[len(result)-1]['description'] = "(information may be missing and only partial dish names were found) " + result[len(result)-1]['description']
+            
+            infos.append(result[len(result)-1])
+
+            
+
+        elif len(result) == 1 :
+
+             # indicate if the dish_name is complete or not
+       
+            if ko_dish != result[0]['ko_name'] :
+                result[0]['description'] = "(information may be missing and only partial dish names were found) " + result[0]['description']
+        
+            infos.append(result[0])
+            
+        else :
+            pass
+
+        
     cursor.close()
+
+    #if it has one or zero directly returns infos 
     return infos
