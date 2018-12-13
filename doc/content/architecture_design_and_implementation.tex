@@ -53,7 +53,9 @@ facebook\_analysis.png \newline
 facebook\_result.png \newline
 facebook\_different\_ex pressions.png \newline
 facebook\_additional\_ feature.png \newline
-facebook\_gif\_image .png
+facebook\_gif\_image .png \newline
+database\_dish\_list.png \newline
+database\_ko\_eng.png
 & documentation \\
 \end{tabularx}
 \end{table}
@@ -208,9 +210,24 @@ The class has no member variable, and the class methods are as follows:
 \begin{itemize}
 \item connect\_db():mysql.connector :  It makes a connector object to connect with our MySQL server to send the query to it. It includes the connection information to connect to database. It uses mysql.connector library to get the mysql.connector class. 
 
-\item get\_dishes(mydb, dish\_names):dict : It sends a query for getting dishes information to the database server using the connector object. The query is for getting descriptions of specific dish name that the module analyzer gives as a parameter. And it returns the results from the database as dictionary. \newline\newline
-
+\item get\_dishes(mydb, dish\_names):dict : It sends a query for getting dishes information to the database server using the connector object. The query is for getting descriptions of specific dish name that the module analyzer gives as a parameter. And it returns the results from the database as dictionary. \newline
 \end{itemize}
 
 \FloatBarrier
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=\linewidth]{./pictures/database_ko_eng}}
+\caption{Matching dish names from Korean to English}
+\label{fig:Matching dish names from Korean to English}
+\end{figure}
+\FloatBarrier
+Database for translation from Korean to English.
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=\linewidth]{./pictures/database_dish_list}}
+\caption{Example of dish list in database}
+\label{fig:Example of dish list in database}
+\end{figure}
+\FloatBarrier
+Database for food name and description in MySQL Workbench.\newline\newline
 
