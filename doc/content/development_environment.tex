@@ -37,11 +37,11 @@ We will also use cloud computing service using Azure cloud platform.
 The service we are using for making our service is:
 \begin{enumerate}
 \item SQL Database 
-\item Heroku  : Azure Virtual machine
+\item Heroku  : Web application deployment model 
 \item Computer Vision API : OCR api
 \end{enumerate}
-We will put our bot service in the server using Azure virtual machine. In that virtual machine, we will upload our program for our bot service and Computer vision api.  
-In order to store and manage the menu data, we will connect our Bot service with the SQL Database from Heroku. We will make database for storing korean and english name of the menu and the details about menu (picture, ingredients, taste, spicyness, etc).
+Heroku is a cloud platform that can build, deliver, monitor and scale applications. Therefor we used Heroku to build a hosting server that could receive webhooks from the Facebook server. In our server, we uploaded program for ‘Before Order’ bot service and Computer vision api. 
+Also In order to store and manage the menu data, we will connect our Bot service with the SQL Database from Heroku. We will make database for storing korean and english name of the menu and the details about menu (picture, ingredients, taste, spicyness, etc).
 Computer vision api will provide us texts from the picture that users send through the bot.
 
 \begin{table}[htb]

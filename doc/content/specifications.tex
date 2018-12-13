@@ -70,21 +70,21 @@ Using a text recognition API and analyzing the image we are able to provide a li
 \begin{itemize}
 \item Get the information from database
 
-The information for dishes will be provided by our own database. Instead of using an open-source API for translating Korean words to English we will be using an own mapping between English and Korean dish names as the common translators don't support uncommon dish names or variants of dish names. Therefore each dish will have an English and an Korean name associated with it to make it possible to search for dishes inside the database using Korean letters. Hence most of the processes in and around the database will have to support and communicate using the UTF-8 encoding. The database will also contain a one or two sentence description for each dish, a list with its main ingredients and additional flags, such as \emph{spicy}. Managing and searching for information in this kind of database has the advantage, that:
+The information for dishes will be provided by our own database. Instead of using an open-source API for translating Korean words to English we will be using an own mapping between English and Korean dish names as the common translators don't support uncommon dish names or variants of dish names. Therefore each dish will have an English and an Korean name associated with it to make it possible to search for dishes inside the database using Korean letters. Hence most of the processes in and around the database will have to support and communicate using the UTF-8 encoding. The database will also contain a one or two sentence description for each dish, a list with its main ingredients and additional flags, such as \emph{spicy}. Managing and searching for information in this kind of database has the advantage, that: \newline
 
 \begin{itemize}
-\item information for every dish is consistent and unlike as in popular search machines, such as \emph{Wikipedia} and \emph{Google}, every entry in the database will have the common information
-\item we can be sure information and names in the database refers to a dish, which enables us to filter out random text sequences and unrelated Korean words and sentences
-\item we don't have to rely on the authenticity of information from a third party
+\item information for every dish is consistent and unlike as in popular search machines, such as \emph{Wikipedia} and \emph{Google}, every entry in the database will have the common information \newline
+\item we can be sure information and names in the database refers to a dish, which enables us to filter out random text sequences and unrelated Korean words and sentences \newline
+\item we don't have to rely on the authenticity of information from a third party \newline
 \end{itemize}
 
 \item Server that can run chatbot and chatbot service
 
-We will use Azure Virtual Server to run our chatbot. There are three parts in our chatbot service in the virtual machine. First one is a script that is connected with Facebook Chatbot API. This script will have scenarios to answer users' requests and call other scripts to provide information to the users. Second one is to recognize the texts from a picture that users send using Computer Vision API, and the last one is for interacting with the database. When the chatbot gets the input from the users, it will call the script for text recognition. The results will be double-checked with the database to ensure only supported dishes are sent to the user in form of a list. By selecting a dish from the list the user sends another request to the chatbot. The chatbot will then call the script for retrieving data from the database and return the detailed information about the dish to the user.
+We will use Azure Virtual Server to run our chatbot. There are three parts in our chatbot service in the virtual machine. First one is a script that is connected with Facebook Chatbot API. This script will have scenarios to answer users' requests and call other scripts to provide information to the users. Second one is to recognize the texts from a picture that users send using Computer Vision API, and the last one is for interacting with the database. When the chatbot gets the input from the users, it will call the script for text recognition. The results will be double-checked with the database to ensure only supported dishes are sent to the user in form of a list. By selecting a dish from the list the user sends another request to the chatbot. The chatbot will then call the script for retrieving data from the database and return the detailed information about the dish to the user. \newline
 
 \item Vision api connection
 
-When chatbot calls the script that is connected with Computer Vision API, it will send the picture to the Computer Vision API and get the results from it in a json format. It includes a request using the key and endpoint of the Computer Vision API. The script also includes a refinement part, where it refines the result text and formats the result of the text recognition as a list. The list will then be returned to the chatbot.
+When chatbot calls the script that is connected with Computer Vision API, it will send the picture to the Computer Vision API and get the results from it in a json format. It includes a request using the key and endpoint of the Computer Vision API. The script also includes a refinement part, where it refines the result text and formats the result of the text recognition as a list. The list will then be returned to the chatbot. \newline
 \end{itemize}
 \FloatBarrier
 
@@ -100,4 +100,4 @@ When chatbot calls the script that is connected with Computer Vision API, it wil
 Although we can not represent it in this prototype, we plan to provide information from our internal database. Users will be able to receive images of the dishes and a detailed description with ingredients...
 
 \subsubsection{Exit}
-If you need information about other menus, please feel free to send us a message.
+If you need information about other menus, please feel free to send us a message. \newline \newline
