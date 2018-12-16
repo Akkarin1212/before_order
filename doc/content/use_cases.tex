@@ -6,7 +6,7 @@ We decided to build chatbot through Facebook, which has more than 2 billion user
 \subsection{Description of practical usage}
 
 \begin{figure}[htbp]
-\centerline{\includegraphics[height=\custompicheight]{./pictures/Screenshot_20181125-194915}}
+\centerline{\includegraphics[height=\custompicheight]{./pictures/facebook_search_chatbot}}
 \caption{Search \emph{Before Order} in Facebook Messenger}
 \label{fig:Before Order_search}
 \end{figure}
@@ -15,7 +15,7 @@ We decided to build chatbot through Facebook, which has more than 2 billion user
 Access Facebook Messenger through a variety of devices. Then users should search our chatbot ‘Before Order’ in Facebook Messenger. As seen from the above capture, ‘Before Order’ is available on smartphone and therefore this meets the requirement A.1.
 
 \begin{figure}[htbp]
-\centerline{\includegraphics[height=\custompicheight]{./pictures/Screenshot_20181125-194938}}
+\centerline{\includegraphics[height=\custompicheight]{./pictures/facebook_initial_page}}
 \caption{Initial screen page of \emph{Before Order}}
 \label{fig:Before Order_initial_screen}
 \end{figure}
@@ -25,7 +25,7 @@ Access Facebook Messenger through a variety of devices. Then users should search
 
 
 \begin{figure}[htbp]
-\centerline{\includegraphics[height=\custompicheight]{./pictures/Screenshot_20181125-195124}}
+\centerline{\includegraphics[height=\custompicheight]{./pictures/facebook_input_selection}}
 \caption{Selecting menu picture as an input}
 \label{fig:Before Order_input_selection}
 \end{figure}
@@ -35,7 +35,7 @@ Access Facebook Messenger through a variety of devices. Then users should search
 
 
 \begin{figure}[htbp]
-\centerline{\includegraphics[height=\custompicheight]{./pictures/Screenshot_20181125-195145}}
+\centerline{\includegraphics[height=\custompicheight]{./pictures/facebook_user_input}}
 \caption{Users sending input to \emph{Before Order}}
 \label{fig:Before Order_send_Input}
 \end{figure}
@@ -45,7 +45,7 @@ The users who are not familiar with Korean menus can get the information they wa
 
 
 \begin{figure}[htbp]
-\centerline{\includegraphics[height=\custompicheight]{./pictures/Screenshot_20181125-195722}}
+\centerline{\includegraphics[height=\custompicheight]{./pictures/facebook_analysis}}
 \caption{Analyzing the input sent from user}
 \label{fig:Before Order_analyze_input}
 \end{figure}
@@ -55,7 +55,7 @@ The users who are not familiar with Korean menus can get the information they wa
 
 
 \begin{figure}[htbp]
-\centerline{\includegraphics[height=\custompicheight]{./pictures/Screenshot_20181125-195753}}
+\centerline{\includegraphics[height=\custompicheight]{./pictures/facebook_result}}
 \caption{Showing information about the selected dish}
 \label{fig:Before Order_show_dish information}
 \end{figure}
@@ -67,7 +67,7 @@ When users click the button with dish name, dish information appears in the way 
 \subsection{Addressing error-prone cases}
 
 \begin{figure}[htbp]
-\centerline{\includegraphics[height=\custompicheight]{./pictures/Screenshot_20181125-200020}}
+\centerline{\includegraphics[height=\custompicheight]{./pictures/facebook_different_expressions}}
 \caption{Handling various error-prone cases}
 \label{fig:Before Order_features}
 \end{figure}
@@ -83,10 +83,12 @@ The basic function set of ‘Before Order’ is to receive photos sent by users,
 \end{figure}
 \FloatBarrier
 
+In cases where it is difficult to provide information because the dish required by the user is not stored in the database, we instead provide information about the larger range of food to which it belongs. For example, if the ‘참치김밥' information is not present on the database, it provides a description of’ gimbap’. Since ‘tuna gimbab’is a subset of normal ‘gimbab’ and the focus of information that users want is on ‘gimbab’ rather than ‘tuna’ itself, it is very useful and complements our weakness such as lack of database information. These additional chat-bot features are part of requirement A.13's reliable data delivery.
+
 \subsection{Handling inappropriate input format}
 
 \begin{figure}[htbp]
-\centerline{\includegraphics[height=\custompicheight]{./pictures/Screenshot_20181125-200053}}
+\centerline{\includegraphics[height=\custompicheight]{./pictures/facebook_gif_image}}
 \caption{Handling inappropriate image format}
 \label{fig:Before Order_handling_error}
 \end{figure}
@@ -99,7 +101,7 @@ Just like the case of random letter clusters ‘치긱가스’, ‘Before Order
 As stated in Requirements A.6, we reduce the process of users searching menus in English and retrieving information about the word again. The users take pictures and send them to us without having to search again. Also, when users open the messenger window again, they can always see it again because they have a history of previous messages.
 
 \subsection{Service management}
-If the users are using the 'Before Order' and we cannot be aware of the message sent by the user, or if there is something we need to correct it, the users can contact us through the Facebook page. When a user posts a post on our page or sends an developer’s e-mail, we can provide feedback, like a requirement A5. And at the beginning of the conversation, we're specifying a message that we want users to send an email if they need help or if an error is detected.
+If the users are using the 'Before Order' and we cannot be aware of the message sent by the user, or if there is something we need to correct it, the users can contact us through the Facebook page. When a user posts a post on our page or sends an developer’s e-mail, we can provide feedback, like a requirement A5. And at the beginning of the conversation, we're specifying a message that we want users to send an email if they need help or if an error is detected.\newline\newline
 
 
 

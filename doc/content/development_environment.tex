@@ -8,7 +8,7 @@ Tool & Usage \\
 \midrule
 Python & We’ve chosen Python as a overall basic language in developing \emph{Before Order} Python language is relatively simple, easier to read, and provides a variety of libraries in the process of implementation. Also, It is a language our team members are all familiar with.\\
 Github	& We decided to use Github because it provides the necessary management functions for software development including the basic functions of the Git such as bug tracking, functional requests, task management and etc. Also, we can easily share and develop program sources together with our team members.\\
-Visual Studio & Visual studio is an integrated development environment(IDE) program made from Microsoft that includes many features as compiler, editor and debugging. We are going to utilize many various necessary functions of visual studio in practical implementation.\\
+Visual Studio Code & Visual Studio Code is an integrated development environment(IDE) program made from Microsoft that includes many features as compiler, editor and debugging. We are going to utilize many various necessary functions of visual studio in practical implementation.\\
 Slack & Slack is a collaborative tool that enables more efficient work and communication while developing software. We are going to take advantage of the work messenger functionality of slack and its convenient drag-and-drop format file sharing
 \end{tabularx}
 \end{table}
@@ -26,6 +26,7 @@ Tool & Cost \\
 \midrule
 SQL database \& server & 16870.76 Won  for 5GB / 10 DTU\\
 Computer Vision API & 2811.63 Won for 1000 transactions\\
+Heroku & Free for a month
 \end{tabularx}
 \end{table}
 \FloatBarrier
@@ -33,14 +34,14 @@ Computer Vision API & 2811.63 Won for 1000 transactions\\
 The OS version in which we will develop the program is Window 10, and We will use our own laptop for developing our service.
 
 We will also use cloud computing service using Azure cloud platform. 
-The service we are using for making our service is:
+The service we are using for making our service is:\newline
 \begin{enumerate}
-\item SQL Database 
-\item Azure server : Azure Virtual machine
-\item Computer Vision API : OCR api
+\item SQL Database \newline
+\item Heroku  : Web application deployment model \newline
+\item Computer Vision API : OCR api \newline
 \end{enumerate}
-We will put our bot service in the server using Azure virtual machine. In that virtual machine, we will upload our program for our bot service and Computer vision api.  
-In order to store and manage the menu data, we will connect our Bot service with the SQL Database from Azure. We will make database for storing korean and english name of the menu and the details about menu (picture, ingredients, taste, spicyness, etc).
+Heroku is a cloud platform that can build, deliver, monitor and scale applications. Therefor we used Heroku to build a hosting server that could receive webhooks from the Facebook server. In our server, we uploaded program for ‘Before Order’ bot service and Computer vision api. 
+Also In order to store and manage the menu data, we will connect our Bot service with the SQL Database from Heroku. We will make database for storing korean and english name of the menu and the details about menu (picture, ingredients, taste, spicyness, etc).
 Computer vision api will provide us texts from the picture that users send through the bot.
 
 \begin{table}[htb]
