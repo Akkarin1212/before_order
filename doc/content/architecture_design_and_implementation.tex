@@ -182,7 +182,9 @@ The module analyzer processes image through the OCR Text Recongnition API to ext
 \item filter\_analyze\_result(analysis):string[*] : The method filter analyze result() gets analysis as a parameter. This the return value of analyze\_pic() method. When it called, the method extracts only korean letters from the analysis string list. The pattern hangul\_pattern is used to distinguish korean letters from the list. \newline
 \item get\_response(message):string : A get\_response method is called when user sends dish name. It calls db module to get information of dish from database server, and it combines dishe's korean name, its roman name and description. When it creates final description, it returns the description. \newline
 \item get\_response\_image(url):string[*] : The method is called when user sends picture of menu. It calls filter\_analyze\_result method to get the korean dishes list and it sends query to find information from the server. and it returns the description of dish. \newline
-\item hangul\_romanizer(hangul):string : The hangul romanizer method romanize dish name. it uses python library hangul\_romanize. It support Tarnsliter class and it just makes korean text to roman. 
+\item hangul\_romanizer(hangul):string : The hangul romanizer method romanize dish name. it uses python library hangul\_romanize. It support Tarnsliter class and it just makes korean text to roman. \newline
+\item check\_image\_url(url):string : it checks the image that user sent if its file type is supported ant its file type is less than 4MB. it is important when we send image to the recognition API. \newline
+\item get\_url\_info(url): dict : it enables to open given url. it is used in the check\_image\_info method. \newline
 \end{itemize} 
 
 \FloatBarrier
