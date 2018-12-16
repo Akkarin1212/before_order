@@ -129,7 +129,10 @@ The class fb\_bot has three member variables. They are as follows:\newline
 \begin{itemize}
 \item ACCESS\_TOKEN:string : ACCESS\_TOKEN is for accessing to the the chatbot messenger. Each chatbot has an unique ACCESS\_TOKEN. A module fb\_bot can get messages from the bot using the token. We need it everytime we send a message to facebook. \newline
 \item VERIFY\_TOKEN:string : it is used when facebook senta a first message to check if the server exists. the VERIFY\_TOKEN can be anything we want to, we just have to specify it when setting up the webhook. \newline
-\item HELP:string : When user write 'help' or type some messages that is not related to request for our service, chatbot sents this string.
+\item GOOGLE\_KEY:string : it is for using Google Image Search API. When we request the image url for specific key word, the key is needed. \newline
+\item GOOGLE\_ENGINE : it is also for using Google Image Search API. \newline
+\item HELP:string : When user write 'help' or type some messages that is not related to request for our service, chatbot sents this string.\newline
+
 \end{itemize} 
 
 The methods that class fb\_bot has are as follows: \newline
@@ -139,6 +142,9 @@ The methods that class fb\_bot has are as follows: \newline
 \item process\_image(message):dict : This method is only for the condition when user send picture type message that users want to know about. It calls analyzer method to get an infromation of dishes and returns description about dishes. It includes all the action messages while the picture analyzes and the information receives. In the action messages, the quick reply type message is included in here. \newline
 \item dishes\_to\_payload(dishes, current\_dish):string : The method is used in the dishes\_to\_quick\_reply method. It saves dish list as a jason format. \newline
 \item dishes\_to\_quick\_reply(dishes, current\_dish):string : The method is for replying to quick reply message type. A quick reply message is one of the message type that Facebook Messenger supports, it consists of the button list. When the fb\_bot module gets dish list from the analyzer module, it creates the quick reply buttons for user to choose one of them to get a information. It calls dishes\_to\_payload method to save the list of dishes that it havent given yet to the users. \newline
+\item filter\_ko\_dish\_from\_list(dished, dish\_to\_filter): string[*] : it iterates over the dishes list and filters out every occurence of dish\_to\_filter. Hangul pattern matcher of analyzer module is used. \newline 
+\item get\_google\_image\_url(dish): string : This method gets image url sending request to get the image url to Google Image Search API. When API gets the dish name throguh the method, it returns image url from the search results.\newline
+\item send\_additional\_image\_for\_dish(dish) : It sends dish image url for the user before bot sends the its description. This method is used in process\_dish\_name method. \newline 
 \item webhook():string : The webhook method controls the connection between Facebook Messeneger server and the chatbot server. It uses Flask, the microframework for python. It uses VERIFY\_TOKEN to check if the server exists. And if it exists, It initiates our chatbot service using init\_bot method in messenger module.
 \end{itemize} 
 
