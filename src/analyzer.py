@@ -16,7 +16,7 @@ hangul_pattern = re.compile(r'([\p{Hangul}]+)', re.UNICODE)
 # filters the text recognition result and only returns words in korean alphabet
 def analyze_pic(image_url):
     assert image_url
-    subscription_key = 'd4dab977c06043a7b30045c22bd4dbf6'
+    subscription_key = ''
     vision_base_url = "https://eastus.api.cognitive.microsoft.com//vision/v2.0/"
     ocr_url = vision_base_url + "ocr"
 
