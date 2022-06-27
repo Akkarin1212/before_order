@@ -11,7 +11,7 @@ MarkupSafe==1.1.0
 mccabe==0.6.1
 multidict==4.4.2
 mysql-connector==2.1.6
-mysql-connector-python==8.0.13
+mysql-connector-python==8.0.14
 post==1.0.2
 public==1.0.3
 py4j==0.10.7
